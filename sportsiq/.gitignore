@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# Env / secrets
+.env
+*.db
+*.sqlite3
+
+# Node / Expo (frontend teammate will add to this)
+node_modules/
+.expo/
+dist/
+web-build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
