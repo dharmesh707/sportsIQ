@@ -1,14 +1,16 @@
-from fastapi import APIRouter
+﻿from fastapi import APIRouter
 
 from app.api.deps import CurrentUser
 from app.schemas.health import HealthDataSummary, HealthDataSyncRequest, OkResponse
 
 router = APIRouter(prefix="/health-data", tags=["health-data"])
 
-# In-memory only for Day 1 stub. Day 2 TODO (per brief section 8): Teammate 6
-# hands off a working react-native-health-connect flow; this becomes a real
-# ingestion endpoint writing to a health_data table. Contract explicitly
-# marks this an OPTIONAL enrichment layer — never gate /analyze on it.
+# In-memory only for now, same pattern as mock_store.py - swap for a real
+# health_data table once persistence matters. Per API_CONTRACT.md this is
+# an OPTIONAL enrichment layer - never gate /analyze or any core endpoint
+# on this data existing. Frontend side (teammate 6): this endpoint is
+# already the real implementation, not a stub - wire react-native-health-connect
+# to POST here whenever real device data is available.
 _summary_store: dict[str, HealthDataSummary] = {}
 
 
