@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+﻿from fastapi import APIRouter, status
 
 from app.api.deps import CurrentUser, DbSession
 from app.models.user import User
@@ -19,7 +19,7 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 def register(body: RegisterRequest, db: DbSession) -> AuthResponse:
     existing = db.query(User).filter(User.email == body.email).first()
     if existing is not None:
-        raise APIError(409, "email_already_registered", "An account with this email already exists.")
+        raise APIError(409, "EMAIL_ALREADY_REGISTERED", "An account with this email already exists.")
 
     user = User(email=body.email, hashed_password=hash_password(body.password))
     db.add(user)
@@ -34,7 +34,7 @@ def register(body: RegisterRequest, db: DbSession) -> AuthResponse:
 def login(body: LoginRequest, db: DbSession) -> AuthResponse:
     user = db.query(User).filter(User.email == body.email).first()
     if user is None or not verify_password(body.password, user.hashed_password):
-        raise APIError(401, "invalid_credentials", "Email or password is incorrect.")
+        raise APIError(401, "INVALID_CREDENTIALS", "Email or password is incorrect.")
 
     token = create_access_token(subject=user.id)
     return AuthResponse(access_token=token, user=UserOut.model_validate(user))
@@ -43,3 +43,5 @@ def login(body: LoginRequest, db: DbSession) -> AuthResponse:
 @router.get("/me", response_model=MeResponse)
 def me(current_user: CurrentUser) -> MeResponse:
     return MeResponse(user=UserOut.model_validate(current_user))
+
+

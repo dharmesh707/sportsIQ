@@ -68,3 +68,4 @@ def run_pipeline(video_bytes: bytes, sport_type: SportType) -> AnalysisResult:
         )
         return build_mock_analysis(sport_type)
     return result
+

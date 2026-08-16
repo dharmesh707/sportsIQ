@@ -43,6 +43,8 @@ def get_analysis(current_user: CurrentUser, analysis_id: str) -> AnalysisResult:
             return result
     raise APIError(
         status_code=404,
-        code="analysis_not_found",
+        code="NOT_FOUND",
         message="No analysis found with that id.",
     )
+
+
