@@ -1,5 +1,5 @@
 ﻿from collections import defaultdict
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 
 from fastapi import APIRouter, Query
 
@@ -31,6 +31,30 @@ def _hard_soft_counts(analysis: AnalysisResult) -> tuple[int, int]:
     soft = sum(1 for f in analysis.faults if f.type.value == "soft")
     return hard, soft
 
+
+def _current_streak_days(analyses: list[AnalysisResult]) -> int:
+    """
+    Consecutive calendar days (in UTC) with at least one session, counting
+    back from today or yesterday. analyses is newest-first. A gap of more
+    than 1 day breaks the streak. Today having zero sessions yet doesn't
+    break a streak that's still live from yesterday.
+    """
+    if not analyses:
+        return 0
+    session_dates = sorted({a.created_at.date() for a in analyses}, reverse=True)
+    today = datetime.now(timezone.utc).date()
+    most_recent = session_dates[0]
+    gap_from_today = (today - most_recent).days
+    if gap_from_today > 1:
+        return 0  # streak already broken - last session was 2+ days ago
+    streak = 1
+    for i in range(1, len(session_dates)):
+        expected_prev = session_dates[i - 1] - timedelta(days=1)
+        if session_dates[i] == expected_prev:
+            streak += 1
+        else:
+            break
+    return streak
 
 def _trend_for(sport_analyses: list[AnalysisResult]) -> str:
     # sport_analyses is newest-first (mock_store inserts newest-first)
@@ -118,7 +142,7 @@ def get_dashboard(current_user: CurrentUser) -> DashboardResponse:
         summary=DashboardSummary(
             total_sessions=len(analyses),
             sports_practiced=list(by_sport.keys()),
-            current_streak_days=1,  # placeholder until real created_at-based streak logic lands
+            current_streak_days=_current_streak_days(analyses),
             last_session_at=analyses[0].created_at,
         ),
         sport_breakdown=sport_breakdown,
@@ -204,3 +228,4 @@ def get_progress(
         data_points=data_points,
         fault_trends=fault_trends,
     )
+
