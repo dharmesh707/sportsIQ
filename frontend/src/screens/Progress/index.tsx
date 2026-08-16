@@ -1,14 +1,10 @@
-import { Text, View } from 'react-native';
-
-/**
- * TODO (teammate 3): migrate the real Progress screen UI here from the
- * old BadmintonIQ repo, per the brief's "Repo strategy" section — cherry-pick
- * the component, don't rebuild from scratch.
+﻿/**
+ * TODO (teammate 3): build the real Progress screen UI here from scratch.
  */
 export default function ProgressScreen() {
   return (
     <View>
-      <Text>Progress — TODO: migrate from BadmintonIQ</Text>
+      <Text>Progress — TODO: build fresh, see PROJECT_README.md</Text>
     </View>
   );
 }

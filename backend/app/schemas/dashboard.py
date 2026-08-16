@@ -1,43 +1,86 @@
-"""
-CONTRACT NOTE: API_CONTRACT.md says GET /dashboard and GET /progress are
-"unchanged from v1.0 shape — see existing code." I don't have the old
-BadmintonIQ v1.0 backend code in front of me to port the exact shape from,
-so DashboardResponse/ProgressResponse below are a reasonable placeholder,
-NOT a confirmed match to v1.0.
-
-ACTION NEEDED: when you (Dharmesh) cherry-pick from the old BadmintonIQ repo
-per the brief's "Repo strategy" section, replace these two schemas with the
-actual v1.0 field names verbatim, then delete this docstring's warning.
-Don't let the frontend teammate build against this placeholder for more
-than a day without confirming it against the real v1.0 shape.
-"""
-
-from datetime import datetime
+﻿from datetime import date, datetime
+from typing import Literal, Optional
 
 from .base import CamelModel
 from .common import SportType
 
+TrendLabel = Literal["improving", "stable", "declining", "insufficient_data"]
+FaultType = Literal["hard", "soft"]
 
-class RecentAnalysisItem(CamelModel):
-    analysis_id: str
+
+class SportBreakdown(CamelModel):
     sport_type: SportType
-    action_label: str
-    overall_score: float
+    session_count: int
+    average_score: float
+    last_session_at: Optional[datetime]
+    trend: TrendLabel
+
+
+class RecentSession(CamelModel):
+    session_id: str
+    sport_type: SportType
+    score: float
+    hard_fault_count: int
+    soft_fault_count: int
     created_at: datetime
 
 
-class DashboardResponse(CamelModel):
-    total_analyses: int
-    average_score: float
+class TopFault(CamelModel):
+    fault_code: str
+    sport_type: SportType
+    fault_type: FaultType
+    occurrence_count: int
+
+
+class DashboardSummary(CamelModel):
+    total_sessions: int
+    sports_practiced: list[SportType]
     current_streak_days: int
-    recent_analyses: list[RecentAnalysisItem]
+    last_session_at: Optional[datetime]
 
 
-class ProgressPoint(CamelModel):
-    date: datetime
-    overall_score: float
+class DashboardResponse(CamelModel):
+    summary: DashboardSummary
+    sport_breakdown: list[SportBreakdown]
+    recent_sessions: list[RecentSession]
+    top_faults: list[TopFault]
+    recommendations: list[str]
+
+
+class ProgressRange(CamelModel):
+    start: date
+    end: date
+
+
+class ProgressBaseline(CamelModel):
+    initial_score: float
+    current_score: float
+    percent_change: float
+    established_at: date
+
+
+class ProgressDataPoint(CamelModel):
+    date: date
+    session_id: str
+    score: float
+    hard_fault_count: int
+    soft_fault_count: int
+
+
+class FaultOccurrence(CamelModel):
+    date: date
+    count: int
+
+
+class FaultTrend(CamelModel):
+    fault_code: str
+    fault_type: FaultType
+    occurrences: list[FaultOccurrence]
 
 
 class ProgressResponse(CamelModel):
     sport_type: SportType
-    points: list[ProgressPoint]
+    range: ProgressRange
+    baseline: ProgressBaseline
+    data_points: list[ProgressDataPoint]
+    fault_trends: list[FaultTrend]

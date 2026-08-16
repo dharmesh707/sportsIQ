@@ -1,11 +1,11 @@
-"""
+﻿"""
 Day 1 scope: NO real ML wired up. Every function here returns hardcoded fake
 data shaped EXACTLY like the real thing will be, so the frontend can build
 against real endpoint shapes today.
 
 When Day 2/3 wires in the real MediaPipe + LSTM pipeline (see ml/pose,
 ml/angles, ml/sports/<sport>/), replace the body of build_mock_analysis()
-with a call into that pipeline — the function signature and return type
+with a call into that pipeline - the function signature and return type
 (AnalysisResult) should NOT need to change, since the frontend is already
 built against this shape.
 
@@ -14,8 +14,12 @@ sport owner defines their own enum "once trained"):
   - badminton: real vocab already exists from BadmintonIQ v1.0 (see contract).
   - tennis / table_tennis / cricket_bowling / archery: PLACEHOLDER labels
     below, marked as such. Swap for the real trained vocab as each sport's
-    classifier lands — update this file's comment when you do, so nobody
+    classifier lands - update this file's comment when you do, so nobody
     mistakes a placeholder for a final label.
+
+fault_code values match API_CONTRACT.md section 2.2's per-sport table
+exactly - if you add a new fault_code here, add it to the contract table
+in the same PR.
 """
 
 import random
@@ -46,33 +50,41 @@ _JOINT_ANGLE_KEYS = [
 
 def _mock_faults(sport: SportType) -> list[Fault]:
     if sport == SportType.CRICKET_BOWLING:
-        # Real, defensible hard-fault anchor per the brief: ICC Law 24 —
+        # Real, defensible hard-fault anchor per the brief: ICC Law 24 -
         # elbow extension > 15 deg between shoulder-height and release = illegal.
         return [
             Fault(
+                fault_code="elbow_extension_excess",
                 type=FaultType.HARD,
-                description="Elbow extension of 18.4° between shoulder-height and release "
-                "exceeds the ICC Law 24 limit of 15° — illegal delivery ('chucking').",
+                description="Elbow extension of 18.4 degrees between shoulder-height and "
+                "release exceeds the ICC Law 24 limit of 15 degrees - illegal delivery.",
                 frame=42,
+                reference_source="ICC Law 24 (>15 degrees extension)",
             ),
             Fault(
+                fault_code="footwork_stance",
                 type=FaultType.SOFT,
                 description="Front foot landing angle is wider than the professional baseline, "
                 "but within personal-baseline variation.",
                 frame=38,
+                reference_source=None,
             ),
         ]
     return [
         Fault(
+            fault_code="non_bent_elbow_contact",
             type=FaultType.HARD,
             description="Elbow drops below shoulder line at contact, reducing power transfer.",
             frame=51,
+            reference_source=None,
         ),
         Fault(
+            fault_code="footwork_stance",
             type=FaultType.SOFT,
-            description="Stance width slightly narrower than the reference form — consistent "
+            description="Stance width slightly narrower than the reference form - consistent "
             "with this player's personal baseline, not penalized.",
             frame=12,
+            reference_source=None,
         ),
     ]
 
