@@ -1,29 +1,27 @@
-from datetime import datetime
-from typing import Any
-
+﻿from datetime import datetime
+from typing import Any, Optional
 from pydantic import Field
-
 from .base import CamelModel
 from .common import FaultType, SportType
 
 
 class Fault(CamelModel):
+    fault_code: str
     type: FaultType
     description: str
     frame: int
+    reference_source: Optional[str] = None
 
 
 class AnalysisResult(CamelModel):
     """
     Mirrors API_CONTRACT.md -> Core analysis -> AnalysisResult exactly.
-
     metrics and joint_angles are intentionally open dicts (contract marks them
-    "sport-specific, see below" / "number values, degrees") — each
+    "sport-specific, see below" / "number values, degrees") - each
     ml/sports/<sport>/ module is free to populate whatever keys apply to that
     sport. Don't add sport-specific typed fields here; that would fragment
     the shape sport-by-sport, which the contract explicitly avoids.
     """
-
     analysis_id: str
     sport_type: SportType
     action_label: str
@@ -40,13 +38,12 @@ class AnalysisResult(CamelModel):
 class AnalysisResultSummary(CamelModel):
     """
     Lighter-weight shape for GET /history list items. Contract references
-    this type by name without spelling it out — kept intentionally close to
+    this type by name without spelling it out - kept intentionally close to
     AnalysisResult minus the heavy per-frame fields (metrics, joint_angles),
     which the history list view doesn't need. If a teammate's UI needs a
     heavier history item, that's a contract change first (see contract's
     "Adding to this file" section), not a silent addition here.
     """
-
     analysis_id: str
     sport_type: SportType
     action_label: str
