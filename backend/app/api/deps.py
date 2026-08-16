@@ -1,4 +1,4 @@
-from collections.abc import Generator
+﻿from collections.abc import Generator
 from typing import Annotated
 
 from fastapi import Depends
@@ -20,17 +20,19 @@ def get_current_user(
     credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer_scheme)],
 ) -> User:
     if credentials is None:
-        raise APIError(401, "unauthorized", "Missing or invalid Authorization header.")
+        raise APIError(401, "UNAUTHORIZED", "Missing or invalid Authorization header.")
 
     user_id = decode_access_token(credentials.credentials)
     if user_id is None:
-        raise APIError(401, "unauthorized", "Invalid or expired token.")
+        raise APIError(401, "UNAUTHORIZED", "Invalid or expired token.")
 
     user = db.get(User, user_id)
     if user is None:
-        raise APIError(401, "unauthorized", "User no longer exists.")
+        raise APIError(401, "UNAUTHORIZED", "User no longer exists.")
 
     return user
 
 
 CurrentUser = Annotated[User, Depends(get_current_user)]
+
+
