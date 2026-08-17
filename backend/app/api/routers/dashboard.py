@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta, timezone
 
 from fastapi import APIRouter, Query
 
-from app.api.deps import CurrentUser
+from app.api.deps import CurrentUser, DbSession
 from app.schemas.analysis import AnalysisResult
 from app.schemas.common import SportType
 from app.schemas.dashboard import (
@@ -19,7 +19,7 @@ from app.schemas.dashboard import (
     SportBreakdown,
     TopFault,
 )
-from app.services import mock_store
+from app.services import analysis_store
 
 router = APIRouter(tags=["analysis"])
 
@@ -57,7 +57,7 @@ def _current_streak_days(analyses: list[AnalysisResult]) -> int:
     return streak
 
 def _trend_for(sport_analyses: list[AnalysisResult]) -> str:
-    # sport_analyses is newest-first (mock_store inserts newest-first)
+    # sport_analyses is newest-first (analysis_store inserts newest-first)
     if len(sport_analyses) < 3:
         return "insufficient_data"
     latest = sport_analyses[0].overall_score
@@ -72,8 +72,8 @@ def _trend_for(sport_analyses: list[AnalysisResult]) -> str:
 
 
 @router.get("/dashboard", response_model=DashboardResponse)
-def get_dashboard(current_user: CurrentUser) -> DashboardResponse:
-    analyses = mock_store.list_for_user(current_user.id)  # newest-first
+def get_dashboard(current_user: CurrentUser, db: DbSession) -> DashboardResponse:
+    analyses = analysis_store.list_for_user(db, current_user.id)  # newest-first
 
     if not analyses:
         return DashboardResponse(
@@ -155,12 +155,13 @@ def get_dashboard(current_user: CurrentUser) -> DashboardResponse:
 @router.get("/progress", response_model=ProgressResponse)
 def get_progress(
     current_user: CurrentUser,
+    db: DbSession,
     sportType: SportType = Query(...),  # noqa: N803 - contract field naming
     range: str = Query("30d"),
 ) -> ProgressResponse:
     days = _RANGE_DAYS.get(range, 30)
     all_analyses = [
-        a for a in mock_store.list_for_user(current_user.id) if a.sport_type == sportType
+        a for a in analysis_store.list_for_user(db, current_user.id) if a.sport_type == sportType
     ]
     if days is not None:
         cutoff = datetime.now(timezone.utc).timestamp() - days * 86400
@@ -228,4 +229,10 @@ def get_progress(
         data_points=data_points,
         fault_trends=fault_trends,
     )
+
+
+
+
+
+
 

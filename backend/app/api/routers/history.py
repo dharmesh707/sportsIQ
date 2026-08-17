@@ -2,10 +2,10 @@
 
 from fastapi import APIRouter, Query
 
-from app.api.deps import CurrentUser
+from app.api.deps import CurrentUser, DbSession
 from app.schemas.analysis import AnalysisResultSummary, HistoryResponse, Pagination
 from app.schemas.common import SportType
-from app.services import mock_store
+from app.services import analysis_store
 
 router = APIRouter(tags=["analysis"])
 
@@ -13,11 +13,12 @@ router = APIRouter(tags=["analysis"])
 @router.get("/history", response_model=HistoryResponse)
 def get_history(
     current_user: CurrentUser,
+    db: DbSession,
     page: int = Query(1, ge=1),
-    pageSize: int = Query(20, ge=1, le=100),  # noqa: N803 - matches contract's query param name exactly
+    pageSize: int = Query(20, ge=1, le=100),  # noqa: N803
     sportType: SportType | None = Query(None),  # noqa: N803
 ) -> HistoryResponse:
-    analyses = mock_store.list_for_user(current_user.id)  # newest-first
+    analyses = analysis_store.list_for_user(db, current_user.id)  # newest-first
     if sportType is not None:
         analyses = [a for a in analyses if a.sport_type == sportType]
 

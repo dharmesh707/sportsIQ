@@ -1,17 +1,22 @@
-from fastapi import FastAPI
+﻿from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers import analyze, auth, dashboard, health_data, history, nutrition
 from app.config import get_settings
 from app.database.session import Base, engine
+from app.models import analysis as _analysis_models  # noqa: F401 - registers tables with Base.metadata
+from app.models import health_data as _health_data_models  # noqa: F401 - same
+from app.models import user as _user_models  # noqa: F401 - same, explicit for clarity
 from app.utils.errors import register_exception_handlers
 
 settings = get_settings()
 
 # Dev convenience only: creates SQLite tables on startup if missing. Once on
-# real Postgres/Supabase, use Alembic migrations instead of this — swap out
+# real Postgres/Supabase, use Alembic migrations instead of this - swap out
 # before Day 3 when the schema actually needs to evolve (PersonalBaseline,
-# SkillCard, etc. per the brief's v1.1 section).
+# SkillCard, etc. per the brief's v1.1 section). The three imports above are
+# required for create_all() to see these models - SQLAlchemy only creates
+# tables for classes that have actually been imported somewhere.
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -41,7 +46,7 @@ app.include_router(nutrition.router)
 
 @app.get("/health", tags=["meta"])
 def health_check() -> dict[str, bool]:
-    # Plain platform liveness check (Railway pings this) — deliberately NOT
+    # Plain platform liveness check (Railway pings this) - deliberately NOT
     # under the contract's error/response envelope since it's not a contract
     # endpoint, just infra plumbing.
     return {"ok": True}
