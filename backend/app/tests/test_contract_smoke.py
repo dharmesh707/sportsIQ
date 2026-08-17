@@ -13,14 +13,14 @@ client = TestClient(app)
 
 def _register_and_login() -> str:
     email = f"test_{uuid.uuid4().hex[:8]}@example.com"
-    res = client.post("/auth/register", json={"email": email, "password": "testpass123"})
+    res = client.post("/auth/register", json={"email": email, "password": "TestPass123"})
     assert res.status_code == 201
     return res.json()["accessToken"]
 
 
 def test_register_response_is_camel_case():
     email = f"test_{uuid.uuid4().hex[:8]}@example.com"
-    res = client.post("/auth/register", json={"email": email, "password": "testpass123"})
+    res = client.post("/auth/register", json={"email": email, "password": "TestPass123"})
     body = res.json()
     # contract: accessToken + user{id, email, createdAt}, camelCase throughout
     assert "accessToken" in body
@@ -30,8 +30,8 @@ def test_register_response_is_camel_case():
 
 def test_duplicate_register_returns_contract_error_shape():
     email = f"test_{uuid.uuid4().hex[:8]}@example.com"
-    client.post("/auth/register", json={"email": email, "password": "testpass123"})
-    res = client.post("/auth/register", json={"email": email, "password": "testpass123"})
+    client.post("/auth/register", json={"email": email, "password": "TestPass123"})
+    res = client.post("/auth/register", json={"email": email, "password": "TestPass123"})
     assert res.status_code == 409
     body = res.json()
     # contract rule #3: exact { "error": { "code", "message" } } shape
@@ -183,3 +183,4 @@ def test_progress_matches_contract_shape():
     for trend in body["faultTrends"]:
         assert set(trend.keys()) == {"faultCode", "faultType", "occurrences"}
         assert trend["faultType"] in {"hard", "soft"}
+
