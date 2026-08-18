@@ -1,0 +1,43 @@
+{
+  "name": "sportsiq",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "dev-client": "expo start --dev-client"
+  },
+  "dependencies": {
+    "expo": "~51.0.0",
+    "expo-build-properties": "~0.12.5",
+    "expo-dev-client": "~4.0.29",
+    "expo-status-bar": "~1.12.1",
+    "expo-secure-store": "~13.0.2",
+    "expo-image-picker": "~15.0.7",
+    "expo-av": "~14.0.7",
+    "react": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-safe-area-context": "4.10.5",
+    "react-native-screens": "3.31.1",
+    "react-native-gesture-handler": "~2.16.1",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/native-stack": "^6.11.0",
+    "@react-navigation/bottom-tabs": "^6.6.1",
+    "@react-native-async-storage/async-storage": "1.23.1",
+    "react-native-svg": "15.2.0",
+    "react-native-reanimated": "~3.10.1",
+    "victory-native": "^36.9.2",
+    "react-native-health-connect": "^3.2.1",
+    "@expo-google-fonts/space-grotesk": "^0.2.3",
+    "@expo-google-fonts/inter": "^0.2.3",
+    "expo-font": "~12.0.9",
+    "expo-splash-screen": "~0.27.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@types/react": "~18.2.79",
+    "typescript": "~5.3.3"
+  }
+}
