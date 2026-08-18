@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "SportsIQ",
+    "slug": "sportsiq",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "sportsiq",
+    "splash": {
+      "backgroundColor": "#0E1512"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sportsiq.app"
+    },
+    "android": {
+      "package": "com.sportsiq.app",
+      "permissions": [
+        "android.permission.health.READ_STEPS",
+        "android.permission.health.READ_HEART_RATE",
+        "android.permission.health.READ_ACTIVE_CALORIES_BURNED",
+        "android.permission.health.READ_EXERCISE"
+      ]
+    },
+    "plugins": [
+      [
+        "react-native-health-connect",
+        {
+          "healthPermissions": {
+            "read": ["Steps", "HeartRate", "ActiveCaloriesBurned", "ExerciseSession"]
+          }
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "apiBaseUrl": "https://api.sportsiq.example.com"
+    }
+  }
+}
