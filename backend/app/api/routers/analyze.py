@@ -1,4 +1,7 @@
-﻿from fastapi import APIRouter, File, Form, UploadFile
+﻿import tempfile
+from pathlib import Path
+
+from fastapi import APIRouter, File, Form, UploadFile
 
 from app.api.deps import CurrentUser, DbSession
 from app.ml_pipeline import run_pipeline
@@ -19,15 +22,19 @@ _ALLOWED_CONTENT_TYPES = {
 async def analyze(
     current_user: CurrentUser,
     db: DbSession,
-    video: UploadFile = File(...),
+    video: UploadFile | None = File(None),
     sportType: SportType = Form(...),  # noqa: N803 - matches contract's multipart field name exactly
 ) -> AnalysisResult:
     """
-    Routes to app/ml_pipeline.py's run_pipeline(), which auto-detects whether
-    a real per-sport classifier exists yet (ml/sports/<sport>/classifier.py)
-    and falls back to mock data if not. Persists via analysis_store.py
-    (real SQLite/Postgres, not the old in-memory mock_store).
+    Routes badminton uploads through the real video detector. Other sports keep
+    the existing classifier/mocked pipeline until their implementations land.
     """
+    if video is None or not video.filename:
+        raise APIError(
+            status_code=400,
+            code="VALIDATION_ERROR",
+            message="Video file is required.",
+        )
     if video.content_type not in _ALLOWED_CONTENT_TYPES:
         raise APIError(
             status_code=422,
@@ -53,9 +60,34 @@ async def analyze(
             message="Uploaded video file is empty.",
         )
 
-    result = run_pipeline(video_bytes, sportType)
-    analysis_store.save(db, current_user.id, result)
-    return result
+    temp_path: Path | None = None
+    try:
+        suffix = Path(video.filename or "").suffix.lower() or ".mp4"
+        with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as temp_file:
+            temp_file.write(video_bytes)
+            temp_path = Path(temp_file.name)
+
+        try:
+            result = run_pipeline(temp_path, sportType)
+        except FileNotFoundError as exc:
+            raise APIError(
+                status_code=500,
+                code="INTERNAL_ERROR",
+                message=str(exc),
+            ) from exc
+        except ValueError as exc:
+            status_code = 422 if "Insufficient pose detection" in str(exc) else 400
+            raise APIError(
+                status_code=status_code,
+                code="VIDEO_PROCESSING_FAILED" if status_code == 422 else "VALIDATION_ERROR",
+                message=str(exc),
+            ) from exc
+
+        analysis_store.save(db, current_user.id, result)
+        return result
+    finally:
+        if temp_path is not None:
+            temp_path.unlink(missing_ok=True)
 
 
 @router.get("/analyze/{analysis_id}", response_model=AnalysisResult)
