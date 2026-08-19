@@ -8,7 +8,7 @@ def test_get_analysis_returns_full_shape():
         "/analyze",
         headers={"Authorization": f"Bearer {token}"},
         files={"video": ("clip.mp4", b"fake", "video/mp4")},
-        data={"sportType": "badminton"},
+        data={"sportType": "tennis"},
     )
     analysis_id = create_res.json()["analysisId"]
 
@@ -50,7 +50,7 @@ def test_get_analysis_scoped_to_owner_not_other_users():
         "/analyze",
         headers={"Authorization": f"Bearer {token_a}"},
         files={"video": ("clip.mp4", b"fake", "video/mp4")},
-        data={"sportType": "badminton"},
+        data={"sportType": "tennis"},
     )
     analysis_id = create_res.json()["analysisId"]
 

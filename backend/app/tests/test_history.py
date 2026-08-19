@@ -2,7 +2,7 @@
 from app.tests.test_contract_smoke import _register_and_login, client
 
 
-def _create_analysis(token: str, sport: str = "badminton"):
+def _create_analysis(token: str, sport: str = "tennis"):
     return client.post(
         "/analyze",
         headers={"Authorization": f"Bearer {token}"},
