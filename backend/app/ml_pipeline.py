@@ -1,5 +1,5 @@
 ﻿"""
-Single entry point for the ML pipeline: run_pipeline(video_bytes, sport_type) -> AnalysisResult.
+Single entry point for the ML pipeline: run_pipeline(video_input, sport_type) -> AnalysisResult.
 
 Lives in backend/app/ (not top-level ml/) so Python can import it without
 path issues when running uvicorn from backend/. The actual per-sport model
@@ -48,7 +48,13 @@ _SPORT_MODULE_PATHS: dict[SportType, str] = {
 }
 
 
-def run_pipeline(video_bytes: bytes, sport_type: SportType) -> AnalysisResult:
+def run_pipeline(video_input: bytes | Path, sport_type: SportType) -> AnalysisResult:
+    if sport_type == SportType.BADMINTON:
+        from app.services.badminton_analysis import analyze_badminton_video
+
+        return analyze_badminton_video(Path(video_input))
+
+    video_bytes = video_input if isinstance(video_input, bytes) else video_input.read_bytes()
     module_path = _SPORT_MODULE_PATHS[sport_type]
     try:
         module = importlib.import_module(module_path)

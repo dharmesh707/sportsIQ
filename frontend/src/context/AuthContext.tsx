@@ -49,22 +49,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Bootstrap from persisted token on cold start.
   useEffect(() => {
+    let active = true;
+
     (async () => {
       try {
         const saved = await SecureStore.getItemAsync(TOKEN_KEY);
+        if (!active) return;
         if (!saved) {
           setStatus("signedOut");
           return;
         }
+
         tokenRef.current = saved;
-        const { user: me } = await api.me();
-        setUser(me);
+        // Do not hold the entire app on a network request during startup.
+        // A saved token is enough to restore navigation; validate it in the
+        // background and let the shared 401 handler clear invalid sessions.
         setStatus("signedIn");
+
+        try {
+          const { user: me } = await api.me();
+          if (active) setUser(me);
+        } catch {
+          // Network/backend failures must not freeze the app at startup.
+          // An invalid token still reaches the shared 401 handler above.
+        }
       } catch {
         await SecureStore.deleteItemAsync(TOKEN_KEY).catch(() => {});
-        clearAuthState();
+        if (active) clearAuthState();
       }
     })();
+
+    return () => {
+      active = false;
+    };
   }, [clearAuthState]);
 
   const login = useCallback(async (email: string, password: string) => {
