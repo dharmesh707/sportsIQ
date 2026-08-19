@@ -114,12 +114,12 @@ def test_dashboard_matches_contract_shape():
         "/analyze",
         headers={"Authorization": f"Bearer {token}"},
         files={"video": ("clip.mp4", b"fake", "video/mp4")},
-        data={"sportType": "badminton"},
+        data={"sportType": "tennis"},
     )
     res = client.get("/dashboard", headers={"Authorization": f"Bearer {token}"})
     body = res.json()
     assert body["summary"]["totalSessions"] == 1
-    assert body["summary"]["sportsPracticed"] == ["badminton"]
+    assert body["summary"]["sportsPracticed"] == ["tennis"]
     assert len(body["recentSessions"]) == 1
     assert set(body["recentSessions"][0].keys()) == {
         "sessionId", "sportType", "score", "hardFaultCount", "softFaultCount", "createdAt",

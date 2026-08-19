@@ -8,7 +8,7 @@ def test_analyze_rejects_non_video_content_type():
         "/analyze",
         headers={"Authorization": f"Bearer {token}"},
         files={"video": ("clip.txt", b"not a video", "text/plain")},
-        data={"sportType": "badminton"},
+        data={"sportType": "tennis"},
     )
     assert res.status_code == 422
     body = res.json()
@@ -21,7 +21,7 @@ def test_analyze_rejects_empty_video():
         "/analyze",
         headers={"Authorization": f"Bearer {token}"},
         files={"video": ("clip.mp4", b"", "video/mp4")},
-        data={"sportType": "badminton"},
+        data={"sportType": "tennis"},
     )
     assert res.status_code == 400
     body = res.json()
@@ -35,7 +35,7 @@ def test_analyze_rejects_oversized_video():
         "/analyze",
         headers={"Authorization": f"Bearer {token}"},
         files={"video": ("clip.mp4", oversized, "video/mp4")},
-        data={"sportType": "badminton"},
+        data={"sportType": "tennis"},
     )
     assert res.status_code == 400
     body = res.json()
@@ -49,6 +49,6 @@ def test_analyze_accepts_allowed_video_types():
             "/analyze",
             headers={"Authorization": f"Bearer {token}"},
             files={"video": ("clip.mov", b"real-ish video bytes", content_type)},
-            data={"sportType": "badminton"},
+            data={"sportType": "tennis"},
         )
         assert res.status_code == 200, f"{content_type} should be accepted"
