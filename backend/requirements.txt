@@ -1,0 +1,28 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.9.2
+pydantic-settings==2.5.2
+sqlalchemy==2.0.35
+python-jose[cryptography]==3.3.0
+passlib==1.7.4
+bcrypt==4.0.1
+# NOTE: pin bcrypt to 4.0.1 exactly. passlib 1.7.4 breaks with bcrypt>=4.1
+# (removed internal __about__ attribute passlib's backend probe relies on) -
+# throws "password cannot be longer than 72 bytes" on the FIRST hash call,
+# which reads like a password-length bug but is actually a version mismatch.
+# Don't "fix" this by upgrading passlib without checking it's resolved.
+python-multipart==0.0.9
+email-validator==2.2.0
+python-dotenv==1.0.1
+
+# Uncomment when moving off SQLite to Supabase Postgres:
+# psycopg2-binary==2.9.9
+
+# Badminton rule-based biomechanics detector
+mediapipe>=0.10.33
+opencv-python>=4.10.0.84
+numpy>=1.26.4
+
+# Dev / testing
+pytest==8.3.3
+httpx==0.27.2

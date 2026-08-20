@@ -1,0 +1,74 @@
+{
+  "_README": [
+    "READ THIS BEFORE CHANGING ANY NUMBER IN THIS FILE.",
+    "",
+    "These are HAND-AUTHORED REFERENCE PROFILES. They were NOT measured from",
+    "video of the named athletes, and no part of this repository contains such",
+    "measurements. They are plausible target joint angles for a well-executed",
+    "overhead badminton shot, written by hand, carried forward from the",
+    "original _TEMPLATES dict in scripts/analyze_badminton_video_rule_based.py.",
+    "",
+    "The athlete names are labels for a STYLE OF TARGET FORM, not a claim that",
+    "this is what that player's body actually does. Any UI copy derived from",
+    "this file must say 'reference profile' and must never say the user is a",
+    "percentage 'as good as' a named athlete.",
+    "",
+    "If someone later derives real per-athlete values from broadcast or lab",
+    "footage, set provenance to 'video_derived', fill in source_note, and the",
+    "wording the API emits will change automatically - see comparison.py.",
+    "",
+    "MEASUREMENT CONVENTIONS (these MUST match detector._frame_angles):",
+    "  elbow_angle             interior angle shoulder-elbow-wrist. 180 = fully extended.",
+    "  shoulder_elevation      angle of the upper arm above horizontal, measured at",
+    "                          the shoulder. 0 = arm horizontal, 90 = arm straight up.",
+    "  knee_angle              interior angle hip-knee-ankle. 180 = fully extended.",
+    "  hip_shoulder_separation absolute difference in image-plane bearing between the",
+    "                          shoulder line and the hip line. 0 = square, higher =",
+    "                          more trunk rotation. 2D proxy, no depth used.",
+    "  torso_inclination       deviation of the hip->shoulder axis from vertical.",
+    "                          0 = perfectly upright.",
+    "",
+    "The v1 file used different conventions for the last three features while",
+    "the template numbers assumed yet another convention, which is why every",
+    "real analysis scored 0.0. See docs/TECHNIQUE_METHODOLOGY.md."
+  ],
+  "schema_version": 2,
+  "sport": "badminton",
+  "applies_to_actions": [
+    "JUMP_SMASH",
+    "STICK_SMASH",
+    "FH_CLEAR",
+    "FH_DROP",
+    "FH_DRIVE"
+  ],
+  "profiles": [
+    {
+      "id": "viktor_axelsen",
+      "display_name": "Viktor Axelsen",
+      "style_note": "Tall attacking profile: high contact point, near-full elbow extension, upright trunk.",
+      "provenance": "hand_authored",
+      "source_note": "Not measured from athlete video. Hand-authored target angles for an attacking overhead shot.",
+      "features": {
+        "elbow_angle": 165.0,
+        "shoulder_elevation": 78.0,
+        "knee_angle": 160.0,
+        "hip_shoulder_separation": 32.0,
+        "torso_inclination": 12.0
+      }
+    },
+    {
+      "id": "kento_momota",
+      "display_name": "Kento Momota",
+      "style_note": "Control-oriented profile: slightly lower contact, more trunk rotation, deeper knee bend.",
+      "provenance": "hand_authored",
+      "source_note": "Not measured from athlete video. Hand-authored target angles for a control-oriented overhead shot.",
+      "features": {
+        "elbow_angle": 158.0,
+        "shoulder_elevation": 70.0,
+        "knee_angle": 152.0,
+        "hip_shoulder_separation": 28.0,
+        "torso_inclination": 16.0
+      }
+    }
+  ]
+}
