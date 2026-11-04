@@ -8,6 +8,7 @@ ENV PYTHONUNBUFFERED=1
 
 # Set the working directory inside the container
 WORKDIR /app
+RUN mkdir -p /app/data
 
 # Install system libraries required by OpenCV and MediaPipe
 RUN apt-get update && apt-get install -y --no-install-recommends \

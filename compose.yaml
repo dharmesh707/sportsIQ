@@ -1,0 +1,18 @@
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: sportsiq-backend:local
+    container_name: sportsiq-api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:////app/data/sportsiq.db
+    volumes:
+      - sportsiq_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  sportsiq_data:
