@@ -1,98 +1,441 @@
 # SportsIQ
 
-AI-powered multi-sport coaching app — SIH college internal round build.
-Video in → MediaPipe pose extraction → joint-angle computation → self-trained
-classifier → hard/soft fault detection against a professional + personal
-baseline. Self-hosted, no external LLM API for core analysis.
+**Your personal AI sports coach. Improve your technique, one rep at a time.**
 
-**`API_CONTRACT.md` at this repo's root is the single source of truth for
-every request/response shape.** If your code and that file disagree, the
-file is right — fix the code. Read it before writing anything that touches
-a request/response boundary. See that file's own header for the full rules;
-the two that matter most day to day:
+SportsIQ is an AI-powered multi-sport coaching application that helps athletes analyze their technique using video-based pose estimation, biomechanical measurements, and personalized feedback.
 
-1. All JSON is camelCase (backend handles this via a shared Pydantic base — see `backend/app/schemas/base.py`).
-2. Every error response is `{ "error": { "code": "string", "message": "string" } }` — no exceptions, no bare strings.
+The goal is not to rank players against one another. SportsIQ helps each athlete understand their movement, identify areas for improvement, and track progress against their own performance.
 
-## Repo layout
+> **Product philosophy: The line judge, not the scoreboard.**
+>
+> SportsIQ is built around personal improvement and the freedom to play.
 
-```
-sportsiq/
-├── API_CONTRACT.md        ← source of truth, read this first
-├── backend/                ← FastAPI (this is Dharmesh's piece)
+---
+
+## Overview
+
+SportsIQ analyzes sports videos through a computer-vision pipeline:
+
+1. Video upload
+2. Pose extraction using MediaPipe
+3. Joint-angle and movement analysis
+4. Comparison against professional reference templates
+5. Technique feedback, strengths, and recommendations
+6. Personal progress tracking
+
+The core analysis pipeline does not depend on an external LLM API.
+
+### Supported sports
+
+| Sport           | Current implementation          |
+| --------------- | ------------------------------- |
+| Badminton       | Rule-based MediaPipe analysis   |
+| Tennis          | Preview — mock analysis results |
+| Table Tennis    | Preview — mock analysis results |
+| Cricket Bowling | Preview — mock analysis results |
+| Archery         | Preview — mock analysis results |
+
+**Important:** Badminton analysis currently uses rule-based heuristics. It is not a self-trained machine-learning classifier. The other sports are not yet backed by real sport-specific analysis pipelines.
+
+---
+
+## Features
+
+### Authentication
+
+- User registration and login
+- JWT-based authentication
+- Password hashing with bcrypt
+- Authenticated API endpoints
+
+### Video Analysis
+
+- Video upload and processing
+- MediaPipe pose estimation
+- Joint-angle computation
+- Professional reference-template comparison
+- Technique scores, strengths, and recommendations
+
+### Progress Tracking
+
+- Analysis history
+- Dashboard summaries
+- Progress tracking
+- Training streaks
+
+### Nutrition
+
+- Rule-based nutrition planning
+- Deterministic recommendations without an external LLM API
+
+### Health Data
+
+- Health data synchronization endpoints
+- Android Health Connect integration groundwork
+
+---
+
+## Tech Stack
+
+### Backend
+
+- Python 3.12
+- FastAPI
+- Pydantic v2
+- SQLAlchemy 2.0
+- JWT authentication
+- MediaPipe PoseLandmarker
+- OpenCV
+- NumPy
+- pytest
+
+### Frontend
+
+- React Native
+- Expo SDK 51
+- TypeScript
+- React Navigation
+
+### Database
+
+- SQLite for current local development
+- Production database selection is pending
+
+### Machine Learning and Computer Vision
+
+- MediaPipe PoseLandmarker
+- OpenCV
+- NumPy
+- Rule-based biomechanics analysis
+
+---
+
+## Repository Structure
+
+```text
+sportsIQ/
+├── API_CONTRACT_final.md
+├── README.md
+├── backend/
+│   ├── .env.example
+│   ├── requirements.txt
+│   ├── models/
+│   │   └── pose_landmarker_full.task
+│   ├── scripts/
+│   │   └── analyze_badminton_video_rule_based.py
 │   └── app/
-│       ├── api/routers/     one file per contract section (auth, analyze, ...)
-│       ├── schemas/         Pydantic models — mirror the contract 1:1
-│       ├── models/          SQLAlchemy DB models
-│       ├── services/        business logic, mock data generators
-│       ├── database/        engine/session setup
-│       ├── ml/               pose / angles / similarity / llm — Day 2+ work
-│       └── tests/           contract smoke tests — run before every push
-└── frontend/                ← React Native (Expo) — teammate 3's piece, TBD
+│       ├── main.py
+│       ├── config.py
+│       ├── api/
+│       │   └── routers/
+│       ├── schemas/
+│       ├── models/
+│       ├── services/
+│       ├── database/
+│       ├── ml/
+│       └── tests/
+└── frontend/
+    ├── App.tsx
+    ├── app.json
+    ├── package.json
+    └── src/
+        ├── api/
+        ├── components/
+        ├── context/
+        ├── health/
+        ├── navigation/
+        ├── screens/
+        ├── theme/
+        └── utils/
 ```
 
-## Backend — local setup
+---
 
-```bash
+## Getting Started
+
+### Prerequisites
+
+- Python 3.12
+- Node.js and npm
+- Git
+- Expo development environment
+- Android device or emulator for mobile testing
+
+### Backend Setup
+
+From the repository root:
+
+```powershell
 cd backend
+```
+
+Create a virtual environment:
+
+```powershell
 python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-cp .env.example .env             # defaults are fine for local dev
+```
+
+Activate it:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Install dependencies:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+Create your local environment file:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Start the development server:
+
+```powershell
 uvicorn app.main:app --reload
 ```
 
-Server runs at `http://127.0.0.1:8000`. Interactive docs at `/docs` (only
-when `DEBUG=true`, which is the local default).
+The API will be available at:
 
-## Before every push (contract discipline)
+- API: http://127.0.0.1:8000
+- Swagger UI: http://127.0.0.1:8000/docs
+- ReDoc: http://127.0.0.1:8000/redoc
+- Health check: http://127.0.0.1:8000/health
 
-```bash
+Interactive API documentation is available when `DEBUG=true`.
+
+### Frontend Setup
+
+Open a separate terminal from the repository root:
+
+```powershell
+cd frontend
+```
+
+Install dependencies:
+
+```powershell
+npm install
+```
+
+Configure the API base URL using the frontend's environment configuration.
+
+For local development, the backend is available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+Start Expo:
+
+```powershell
+npx expo start
+```
+
+For a physical Android device, use the development machine's LAN IP address instead of `127.0.0.1`.
+
+---
+
+## API Documentation
+
+The backend exposes REST endpoints for:
+
+| Area           | Description                           |
+| -------------- | ------------------------------------- |
+| Authentication | Registration, login, and current user |
+| Analysis       | Video analysis and analysis details   |
+| History        | Paginated analysis history            |
+| Dashboard      | User activity summaries               |
+| Progress       | Personal performance tracking         |
+| Nutrition      | Rule-based nutrition planning         |
+| Health Data    | Health data synchronization           |
+| Health         | Application health check              |
+
+The API contract is maintained in:
+
+[`API_CONTRACT_final.md`](./API_CONTRACT_final.md)
+
+The contract defines the request and response shapes, enums, error format, and integration rules.
+
+---
+
+## API Contract Discipline
+
+`API_CONTRACT_final.md` is the single source of truth for every request and response.
+
+Any change to an API boundary must follow these rules:
+
+1. Update the API contract first.
+2. Implement the corresponding backend or frontend change.
+3. Add or update contract smoke tests.
+4. Verify the integration before merging.
+
+### JSON conventions
+
+All JSON keys use camelCase.
+
+Example:
+
+```json
+{
+  "analysisId": "example-id",
+  "sportType": "badminton",
+  "overallScore": 85
+}
+```
+
+### Error format
+
+Every API error follows this structure:
+
+```json
+{
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human-readable error message"
+  }
+}
+```
+
+### Sport types
+
+The current sport enum is:
+
+```text
+badminton
+tennis
+table_tennis
+cricket_bowling
+archery
+```
+
+Do not introduce additional sport types without updating the API contract.
+
+---
+
+## Testing
+
+The backend test suite is located in:
+
+```text
+backend/app/tests/
+```
+
+Run the complete test suite from the `backend` directory:
+
+```powershell
+pytest -v
+```
+
+Run contract smoke tests:
+
+```powershell
 pytest app/tests/test_contract_smoke.py -v
 ```
 
-This isn't a full test suite — it's a fast tripwire that checks camelCase,
-the error shape, and the `sport_type` enum on the endpoints that exist so
-far. If it's red, don't push. Add a case here whenever you add or change an
-endpoint.
+The project currently has 48 backend tests passing in the reviewed codebase.
 
-Quick manual check against a running server:
+Always run the tests before pushing changes.
 
-```bash
-curl -X POST http://127.0.0.1:8000/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"email":"you@example.com","password":"testpass123"}'
-```
+---
 
-## Current status (Day 1)
+## Docker and Deployment
 
-- Auth (register/login/me) — real, working, JWT + bcrypt, SQLite locally.
-- `/analyze` — real auth + multipart handling, but returns **hardcoded mock
-  `AnalysisResult` data** (see `services/mock_data.py`). No ML wired up yet —
-  that's Day 2/3.
-- `/history`, `/dashboard`, `/progress` — real endpoints, backed by an
-  in-memory store for now (`services/mock_store.py`). `/dashboard` and
-  `/progress` shapes are a **placeholder** — contract says they're
-  "unchanged from v1.0" but the actual v1.0 backend code wasn't available
-  when this was scaffolded. Port the real shape from the old BadmintonIQ
-  repo before the frontend teammate builds heavily against these two.
-- `/health-data/sync` + `/summary` — stub, in-memory. Real integration
-  lands when Health Connect work (teammate 6) hands off.
-- `/nutrition/plan` — **real rule-based logic**, not mocked (deterministic,
-  no LLM call — see `services/nutrition_rules.py`). Macro numbers are a
-  first-pass scaffold; sanity-check against real sports-nutrition sources
-  before judges see exact figures.
+SportsIQ is being prepared for deployment as a publicly accessible demo.
 
-## Known dependency gotcha (already fixed here, don't re-break it)
+The deployment plan includes:
 
-`bcrypt` is pinned to `4.0.1` in `requirements.txt`. Newer bcrypt (4.1+)
-breaks `passlib==1.7.4` with a misleading "password cannot be longer than
-72 bytes" error on the very first hash call — reads like a password-length
-bug, is actually a version mismatch. If you ever run `pip install -U bcrypt`,
-you'll hit this again.
+- Containerized FastAPI backend
+- Environment-based production configuration
+- Persistent production database
+- Public frontend deployment
+- Android application distribution
 
-## Team norm
+Docker support and production deployment are currently being prepared.
 
-Build against `API_CONTRACT.md` exactly — field names, `sport_type` values,
-error shape. Need something different? Change the contract file first, in
-the same PR as the code, then write the code. Not the other way around.
+Deployment instructions will be updated after the container build and health checks have been verified.
+
+---
+
+## Known Limitations
+
+SportsIQ is an actively developed project.
+
+Current limitations include:
+
+- Real video analysis is currently implemented for badminton only.
+- Other sports return mock analysis results.
+- Badminton analysis uses rule-based heuristics rather than a trained classifier.
+- The fault-detection system is not fully implemented.
+- Personal baseline comparison is not yet implemented.
+- Professional reference templates are currently hard-coded.
+- Analysis uses a limited contact-frame approach.
+- Frontend behavior and production deployment require further verification.
+
+These limitations are being addressed as part of the development roadmap.
+
+---
+
+## Development Roadmap
+
+### Phase 0 — Housekeeping and Deployment Readiness
+
+- Rewrite project documentation
+- Add Docker support
+- Improve production configuration
+- Clearly label unsupported sports
+
+### Phase 1 — ML Refinement
+
+- Build a real-video evaluation dataset
+- Improve pose detection and contact-frame estimation
+- Implement fault detection
+- Introduce personal performance baselines
+- Evaluate and calibrate analysis scores
+
+### Phase 2 — Deployment
+
+- Deploy the backend
+- Configure a persistent production database
+- Configure production environment variables
+- Verify API health and application behavior
+
+### Phase 3 — UI Redesign
+
+- Refine the design system
+- Improve navigation and screen hierarchy
+- Introduce the signature analysis experience
+- Improve visual feedback and progress tracking
+
+### Phase 4 — Beta and Scaling
+
+- Introduce asynchronous analysis jobs
+- Add rate limits and monitoring
+- Improve privacy and consent handling
+- Publish an Android demo build
+- Collect user feedback
+
+---
+
+## Security Notes
+
+- Never commit real `.env` files or production secrets.
+- Use a strong production `SECRET_KEY`.
+- Restrict CORS origins in production.
+- Keep authentication enabled for protected endpoints.
+- Do not expose user videos or personal analysis data publicly.
+- Review database persistence and backup requirements before deployment.
+
+---
+
+## Project
+
+SportsIQ was developed as part of Smart India Hackathon 2026 and is being extended into a demo-ready sports-coaching product.
+
+The project follows the principle of personal improvement over competitive ranking.
+
+**Your technique. Your progress. Your game.**
