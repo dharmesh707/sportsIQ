@@ -15,8 +15,9 @@ python-multipart==0.0.9
 email-validator==2.2.0
 python-dotenv==1.0.1
 
-# Uncomment when moving off SQLite to Supabase Postgres:
-# psycopg2-binary==2.9.9
+# Database migrations and PostgreSQL
+alembic
+psycopg[binary]
 
 # Badminton rule-based biomechanics detector
 mediapipe>=0.10.33

@@ -17,7 +17,10 @@ settings = get_settings()
 # SkillCard, etc. per the brief's v1.1 section). The three imports above are
 # required for create_all() to see these models - SQLAlchemy only creates
 # tables for classes that have actually been imported somewhere.
-Base.metadata.create_all(bind=engine)
+# Local SQLite development convenience.
+# PostgreSQL/Supabase schema changes must be managed through Alembic.
+if settings.database_url.startswith("sqlite"):
+    Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="SportsIQ API",
@@ -28,7 +31,15 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins.split(",") if settings.cors_origins != "*" else ["*"],
+    allow_origins=(
+        ["*"]
+        if settings.cors_origins.strip() == "*"
+        else [
+            origin.strip()
+            for origin in settings.cors_origins.split(",")
+            if origin.strip()
+        ]
+    ),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

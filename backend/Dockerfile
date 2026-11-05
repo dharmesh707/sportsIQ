@@ -24,8 +24,10 @@ RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
 
 # Copy backend source code and pose model
+# Copy backend source code, analysis scripts, and pose model
 COPY backend/app ./app
 COPY backend/models ./models
+COPY backend/scripts ./scripts
 
 # Expose the FastAPI port
 EXPOSE 8000
