@@ -1,0 +1,11 @@
+frame_index,player_presence,notes
+120,PLAYER_PRESENT,Player arm and torso visible; camera very close
+122,PLAYER_PRESENT,Player arm and torso visible; camera close and blurred
+124,PLAYER_PRESENT,Player limb visible during camera movement
+126,PLAYER_PRESENT,Player body or limb still visible; heavy motion blur
+128,UNCERTAIN,Blurred obstructed transition; player presence unclear
+131,PLAYER_ABSENT,Floor and unrelated objects; no identifiable player visible
+141,PLAYER_ABSENT,Floor and unrelated objects; no player visible
+144,PLAYER_ABSENT,Floor and unrelated objects; no player visible
+152,PLAYER_ABSENT,Unrelated objects on floor; no player visible
+158,PLAYER_ABSENT,Unrelated object/package on floor; no player visible

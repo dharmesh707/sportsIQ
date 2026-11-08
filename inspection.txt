@@ -1,0 +1,1897 @@
+
+===== git =====
+main
+ M README.md
+ M backend/app/ml/pose/__init__.py
+ M backend/requirements.txt
+ M ml/README.md
+?? backend/app/ml/dataset/
+?? backend/app/ml/features/
+?? backend/app/ml/pose/presence.py
+?? backend/app/ml/pose/quality.py
+?? backend/app/ml/pose/sequence.py
+?? backend/app/ml/scripts/
+?? backend/app/tests/test_manifest_validator.py
+?? backend/app/tests/test_pose_diagnostic.py
+?? backend/app/tests/test_pose_presence.py
+?? backend/app/tests/test_pose_quality.py
+?? backend/app/tests/test_pose_sequence.py
+?? backend/app/tests/test_temporal_depth.py
+?? backend/app/tests/test_temporal_feature_export.py
+?? backend/app/tests/test_temporal_features.py
+?? backend/data/
+?? backend/tools/
+?? docs/
+?? inspection.txt
+41c8ecb chore: complete backend configuration and database migration
+e810e14 Add Docker Compose with persistent SQLite storage
+598e2c3 Merge pull request #17 from dharmesh707/feat/real-frontend-integration
+ff543d6 Add Docker configuration for backend
+211e579 Updated the Readme
+
+===== top-level =====
+.pytest_cache
+backend
+docs
+frontend
+ml
+.dockerignore
+.gitattributes
+.gitignore
+API_CONTRACT_final.md
+compose.yaml
+inspection.txt
+README.md
+sportsiq.db
+
+===== backend tree =====
+backend\.pytest_cache\README.md
+backend\alembic\versions\ba825d2d8187_initial_sportsiq_schema.py
+backend\alembic\env.py
+backend\app\api\routers\analyze.py
+backend\app\api\routers\auth.py
+backend\app\api\routers\dashboard.py
+backend\app\api\routers\health_data.py
+backend\app\api\routers\history.py
+backend\app\api\routers\nutrition.py
+backend\app\api\routers\__init__.py
+backend\app\api\deps.py
+backend\app\api\__init__.py
+backend\app\database\session.py
+backend\app\database\__init__.py
+backend\app\ml\angles\__init__.py
+backend\app\ml\dataset\manifest_validator.py
+backend\app\ml\dataset\__init__.py
+backend\app\ml\features\temporal.py
+backend\app\ml\features\__init__.py
+backend\app\ml\llm\__init__.py
+backend\app\ml\pose\presence.py
+backend\app\ml\pose\quality.py
+backend\app\ml\pose\sequence.py
+backend\app\ml\pose\__init__.py
+backend\app\ml\scripts\analyze_temporal_depth.py
+backend\app\ml\scripts\diagnose_pose_sequence.py
+backend\app\ml\scripts\export_temporal_features.py
+backend\app\ml\scripts\extract_smash_candidates.py
+backend\app\ml\scripts\validate_annotation_manifest.py
+backend\app\ml\scripts\validate_pose_sequence.py
+backend\app\ml\similarity\__init__.py
+backend\app\ml\__init__.py
+backend\app\models\analysis.py
+backend\app\models\health_data.py
+backend\app\models\user.py
+backend\app\models\__init__.py
+backend\app\schemas\analysis.py
+backend\app\schemas\auth.py
+backend\app\schemas\base.py
+backend\app\schemas\common.py
+backend\app\schemas\dashboard.py
+backend\app\schemas\errors.py
+backend\app\schemas\health.py
+backend\app\schemas\nutrition.py
+backend\app\schemas\__init__.py
+backend\app\services\analysis_store.py
+backend\app\services\badminton_analysis.py
+backend\app\services\mock_data.py
+backend\app\services\nutrition_rules.py
+backend\app\services\__init__.py
+backend\app\storage\__init__.py
+backend\app\tests\test_analyze_detail.py
+backend\app\tests\test_analyze_guardrails.py
+backend\app\tests\test_badminton_detector_endpoint.py
+backend\app\tests\test_config.py
+backend\app\tests\test_contract_smoke.py
+backend\app\tests\test_health_data.py
+backend\app\tests\test_history.py
+backend\app\tests\test_manifest_validator.py
+backend\app\tests\test_ml_pipeline.py
+backend\app\tests\test_password_validation.py
+backend\app\tests\test_pose_diagnostic.py
+backend\app\tests\test_pose_presence.py
+backend\app\tests\test_pose_quality.py
+backend\app\tests\test_pose_sequence.py
+backend\app\tests\test_streak_calc.py
+backend\app\tests\test_temporal_depth.py
+backend\app\tests\test_temporal_features.py
+backend\app\tests\test_temporal_feature_export.py
+backend\app\tests\__init__.py
+backend\app\utils\errors.py
+backend\app\utils\security.py
+backend\app\utils\__init__.py
+backend\app\workers\__init__.py
+backend\app\config.py
+backend\app\conftest.py
+backend\app\main.py
+backend\app\ml_pipeline.py
+backend\app\__init__.py
+backend\scripts\analyze_badminton_video_rule_based.py
+backend\tools\create_video_contact_sheet.py
+backend\tools\export_late_video_frames.py
+backend\migrate_sqlite_to_supabase.py
+backend\requirements.txt
+
+===== frontend tree =====
+frontend\.env
+frontend\.gitignore
+frontend\app.json
+frontend\App.tsx
+frontend\babel.config.js
+frontend\package-lock.json
+frontend\package.json
+frontend\README.md
+frontend\tsconfig.json
+frontend\.expo\devices.json
+frontend\.expo\README.md
+frontend\android\.gitignore
+frontend\android\build.gradle
+frontend\android\gradle.properties
+frontend\android\gradlew
+frontend\android\gradlew.bat
+frontend\android\settings.gradle
+frontend\android\.gradle\file-system.probe
+frontend\android\.gradle\8.8\gc.properties
+frontend\android\.gradle\8.8\checksums\checksums.lock
+frontend\android\.gradle\8.8\checksums\md5-checksums.bin
+frontend\android\.gradle\8.8\checksums\sha1-checksums.bin
+frontend\android\.gradle\8.8\dependencies-accessors\gc.properties
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-1a02b6a4-36e3-4b46-9e41-baeb46cc8e77\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-1a02b6a4-36e3-4b46-9e41-baeb46cc8e77\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\metadata.bin
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibs.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\sources\org\gradle\accessors\dm\LibrariesForLibs.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-279f2a8d-872b-4689-992e-34ca638e2d13\sources\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\metadata.bin
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibs.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\sources\org\gradle\accessors\dm\LibrariesForLibs.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-616e9ff5-dfe2-4af4-be84-87e1dc6ec2bf\sources\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\metadata.bin
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibs.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\sources\org\gradle\accessors\dm\LibrariesForLibs.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-829420e6-95b3-4d69-ae19-2caa6fa57777\sources\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-85d694d2-73a6-4b08-9242-47666dcbf4c1\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-85d694d2-73a6-4b08-9242-47666dcbf4c1\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-b2f691e8-c27e-41b2-baa5-a88662aa9c28\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-b2f691e8-c27e-41b2-baa5-a88662aa9c28\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\metadata.bin
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibs.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$BundleAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinPluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$PluginAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$VersionAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\sources\org\gradle\accessors\dm\LibrariesForLibs.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-bbb0cf82-661f-4510-95f0-6af2f5b55ecf\sources\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock.java
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-e5fb656d-9459-49fc-b0f1-1b7a4be68420\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$AndroidGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\dependencies-accessors\423f0288fa7dffe069445ffa4b72952b4629a15a-e5fb656d-9459-49fc-b0f1-1b7a4be68420\classes\org\gradle\accessors\dm\LibrariesForLibsInPluginsBlock$KotlinGradleLibraryAccessors.class
+frontend\android\.gradle\8.8\fileChanges\last-build.bin
+frontend\android\.gradle\8.8\fileHashes\fileHashes.bin
+frontend\android\.gradle\8.8\fileHashes\fileHashes.lock
+frontend\android\.gradle\vcs-1\gc.properties
+frontend\android\app\build.gradle
+frontend\android\app\debug.keystore
+frontend\android\app\proguard-rules.pro
+frontend\android\app\src\debug\AndroidManifest.xml
+frontend\android\app\src\main\AndroidManifest.xml
+frontend\android\app\src\main\java\com\sportsiq\app\MainActivity.kt
+frontend\android\app\src\main\java\com\sportsiq\app\MainApplication.kt
+frontend\android\app\src\main\res\drawable\rn_edit_text_material.xml
+frontend\android\app\src\main\res\drawable\splashscreen.xml
+frontend\android\app\src\main\res\mipmap-hdpi\ic_launcher.png
+frontend\android\app\src\main\res\mipmap-hdpi\ic_launcher_round.png
+frontend\android\app\src\main\res\mipmap-mdpi\ic_launcher.png
+frontend\android\app\src\main\res\mipmap-mdpi\ic_launcher_round.png
+frontend\android\app\src\main\res\mipmap-xhdpi\ic_launcher.png
+frontend\android\app\src\main\res\mipmap-xhdpi\ic_launcher_round.png
+frontend\android\app\src\main\res\mipmap-xxhdpi\ic_launcher.png
+frontend\android\app\src\main\res\mipmap-xxhdpi\ic_launcher_round.png
+frontend\android\app\src\main\res\mipmap-xxxhdpi\ic_launcher.png
+frontend\android\app\src\main\res\mipmap-xxxhdpi\ic_launcher_round.png
+frontend\android\app\src\main\res\values\colors.xml
+frontend\android\app\src\main\res\values\strings.xml
+frontend\android\app\src\main\res\values\styles.xml
+frontend\android\app\src\main\res\values-night\colors.xml
+frontend\android\gradle\wrapper\gradle-wrapper.jar
+frontend\android\gradle\wrapper\gradle-wrapper.properties
+frontend\android\react-settings-plugin\build.gradle.kts
+frontend\android\react-settings-plugin\src\main\kotlin\expo\plugins\ReactSettingsPlugin.kt
+frontend\src\api\client.ts
+frontend\src\api\types.ts
+frontend\src\components\AnalysisResultView.tsx
+frontend\src\components\EmptyState.tsx
+frontend\src\components\ErrorBanner.tsx
+frontend\src\components\FaultCard.tsx
+frontend\src\components\LoadingState.tsx
+frontend\src\components\Primitives.tsx
+frontend\src\components\ScoreRing.tsx
+frontend\src\components\SportBadge.tsx
+frontend\src\components\TrendPill.tsx
+frontend\src\context\AuthContext.tsx
+frontend\src\health\healthConnect.ts
+frontend\src\navigation\RootNavigator.tsx
+frontend\src\navigation\types.ts
+frontend\src\screens\AnalysisDetailScreen.tsx
+frontend\src\screens\AnalyzeScreen.tsx
+frontend\src\screens\DashboardScreen.tsx
+frontend\src\screens\HistoryScreen.tsx
+frontend\src\screens\ProfileScreen.tsx
+frontend\src\screens\ProgressScreen.tsx
+frontend\src\screens\TrainScreen.tsx
+frontend\src\screens\auth\LoginScreen.tsx
+frontend\src\screens\auth\RegisterScreen.tsx
+frontend\src\theme\tokens.ts
+frontend\src\utils\format.ts
+frontend\src\utils\sportMeta.ts
+
+===== API entry points =====
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\main.py:25: app = FastAPI(
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\main.py:58: @app.get("/health", tags=["meta"])
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\analyze.py:13: router = APIRouter(tags=["analysis"])
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\analyze.py:21: @router.post("/analyze", response_model=AnalysisResult)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\analyze.py:93: @router.get("/analyze/{analysis_id}", response_model=AnalysisResult)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\auth.py:15: router = APIRouter(prefix="/auth", tags=["auth"])
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\auth.py:18: @router.post("/register", response_model=AuthResponse, status_code=status.HTTP_201_CREATED)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\auth.py:33: @router.post("/login", response_model=AuthResponse)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\auth.py:43: @router.get("/me", response_model=MeResponse)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\dashboard.py:24: router = APIRouter(tags=["analysis"])
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\dashboard.py:74: @router.get("/dashboard", response_model=DashboardResponse)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\dashboard.py:155: @router.get("/progress", response_model=ProgressResponse)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\health_data.py:7: router = APIRouter(prefix="/health-data", tags=["health-data"])
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\health_data.py:17: @router.post("/sync", response_model=OkResponse)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\health_data.py:33: @router.get("/summary", response_model=HealthDataSummary)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\history.py:10: router = APIRouter(tags=["analysis"])
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\history.py:13: @router.get("/history", response_model=HistoryResponse)
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\nutrition.py:7: router = APIRouter(prefix="/nutrition", tags=["nutrition"])
+C:\Users\dharm\Downloads\SPORTSIQ\backend\app\api\routers\nutrition.py:10: @router.get("/plan", response_model=NutritionPlan)
+
+===== frontend API calls =====
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\api\client.ts:58: res = await fetch(`${BASE_URL}${path}`, { ...init, headers });
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\components\AnalysisResultView.tsx:3: import { AnalysisResult } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\components\FaultCard.tsx:3: import { Fault } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\components\SportBadge.tsx:3: import { SportType } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\components\TrendPill.tsx:3: import { Trend } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\context\AuthContext.tsx:10: import { api, configureApiClient } from "@/api/client";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\context\AuthContext.tsx:11: import { ApiError, User } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\health\healthConnect.ts:9: import { HealthSyncPayload } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\navigation\types.ts:1: import { SportType } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\AnalysisDetailScreen.tsx:4: import { api } from "@/api/client";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\AnalysisDetailScreen.tsx:5: import { ApiError, AnalysisResult } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\AnalyzeScreen.tsx:5: import { api } from "@/api/client";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\AnalyzeScreen.tsx:6: import { ApiError, AnalysisResult, SportType } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\DashboardScreen.tsx:4: import { api } from "@/api/client";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\DashboardScreen.tsx:5: import { ApiError, DashboardResponse } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\HistoryScreen.tsx:6: import { api } from "@/api/client";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\HistoryScreen.tsx:7: import { ApiError, AnalysisResultSummary, SportType } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\ProgressScreen.tsx:4: import { api } from "@/api/client";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\ProgressScreen.tsx:5: import { ApiError, ProgressRange, ProgressResponse, SportType } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\TrainScreen.tsx:3: import { api } from "@/api/client";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\screens\TrainScreen.tsx:4: import { ApiError, HealthSummary, NutritionPlanResponse, SportType } from "@/api/types";
+C:\Users\dharm\Downloads\SPORTSIQ\frontend\src\utils\sportMeta.ts:1: import { SportType } from "@/api/types";
+
+===== asset checks =====
+model: True
+video: True
+
+===== backend\app\ml\pose\sequence.py =====
+"""MediaPipe pose-sequence extraction for badminton movement analysis."""
+
+from __future__ import annotations
+
+import math
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Literal, Sequence
+
+import cv2
+import mediapipe as mp
+import numpy as np
+
+from app.ml.pose.presence import PlayerPresence
+
+RacketSide = Literal["left", "right", "unknown"]
+MODEL_PATH = Path(__file__).resolve().parents[3] / "models" / "pose_landmarker_full.task"
+
+LANDMARK_INDICES = {
+    "left_shoulder": 11,
+    "right_shoulder": 12,
+    "left_elbow": 13,
+    "right_elbow": 14,
+    "left_wrist": 15,
+    "right_wrist": 16,
+}
+
+
+@dataclass(frozen=True)
+class LandmarkSample:
+    """A landmark and its detector metadata, including missingness."""
+
+    present: bool
+    x: float | None = None
+    y: float | None = None
+    z: float | None = None
+    visibility: float | None = None
+    presence: float | None = None
+
+
+@dataclass(frozen=True)
+class ArmPose:
+    shoulder: LandmarkSample
+    elbow: LandmarkSample
+    wrist: LandmarkSample
+    elbow_angle_degrees: float | None
+
+
+@dataclass(frozen=True)
+class PoseFrame:
+    frame_index: int
+    timestamp_ms: int
+    left: ArmPose
+    right: ArmPose
+    player_presence: PlayerPresence = "UNCERTAIN"
+
+
+@dataclass(frozen=True)
+class PoseSequence:
+    """Timestamped bilateral pose observations for later model training."""
+
+    frames: tuple[PoseFrame, ...]
+    fps: float
+    racket_side: RacketSide
+
+
+def safe_angle_degrees(
+    first: Sequence[float],
+    vertex: Sequence[float],
+    last: Sequence[float],
+) -> float | None:
+    """Return a finite 3D angle, or None when the geometry is invalid."""
+    try:
+        first_vector = np.asarray(first, dtype=float) - np.asarray(vertex, dtype=float)
+        last_vector = np.asarray(last, dtype=float) - np.asarray(vertex, dtype=float)
+    except (TypeError, ValueError):
+        return None
+    if first_vector.shape != last_vector.shape or not np.all(np.isfinite(first_vector)):
+        return None
+    if not np.all(np.isfinite(last_vector)):
+        return None
+    denominator = np.linalg.norm(first_vector) * np.linalg.norm(last_vector)
+    if not np.isfinite(denominator) or denominator <= 0:
+        return None
+    cosine = np.dot(first_vector, last_vector) / denominator
+    if not np.isfinite(cosine):
+        return None
+    return math.degrees(math.acos(float(np.clip(cosine, -1.0, 1.0))))
+
+
+def calculate_elbow_angle(
+    shoulder: LandmarkSample,
+    elbow: LandmarkSample,
+    wrist: LandmarkSample,
+) -> float | None:
+    """Calculate an elbow angle only when all three landmarks are valid."""
+    points = (shoulder, elbow, wrist)
+    if not all(point.present and point.x is not None and point.y is not None and point.z is not None
+               for point in points):
+        return None
+    return safe_angle_degrees(
+        (shoulder.x, shoulder.y, shoulder.z),
+        (elbow.x, elbow.y, elbow.z),
+        (wrist.x, wrist.y, wrist.z),
+    )
+
+
+def _landmark(landmarks, name: str) -> LandmarkSample:
+    index = LANDMARK_INDICES[name]
+    if index >= len(landmarks):
+        return LandmarkSample(present=False)
+    landmark = landmarks[index]
+    values = (getattr(landmark, "x", None), getattr(landmark, "y", None), getattr(landmark, "z", None))
+    coordinates = tuple(_finite_float(value) for value in values)
+    visibility = _confidence(getattr(landmark, "visibility", None))
+    presence = _confidence(getattr(landmark, "presence", None))
+    if any(value is None for value in coordinates):
+        return LandmarkSample(
+            present=False,
+            visibility=visibility,
+            presence=presence,
+        )
+    return LandmarkSample(
+        present=True,
+        x=coordinates[0],
+        y=coordinates[1],
+        z=coordinates[2],
+        visibility=visibility,
+        presence=presence,
+    )
+
+
+def _arm_pose(landmarks, side: str) -> ArmPose:
+    shoulder = _landmark(landmarks, f"{side}_shoulder")
+    elbow = _landmark(landmarks, f"{side}_elbow")
+    wrist = _landmark(landmarks, f"{side}_wrist")
+    return ArmPose(
+        shoulder=shoulder,
+        elbow=elbow,
+        wrist=wrist,
+        elbow_angle_degrees=calculate_elbow_angle(shoulder, elbow, wrist),
+    )
+
+
+def _finite_float(value: object) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number if math.isfinite(number) else None
+
+
+def _confidence(value: object) -> float | None:
+    number = _finite_float(value)
+    return number if number is not None and 0.0 <= number <= 1.0 else None
+
+
+def _validate_fps(fps: float) -> float:
+    if not math.isfinite(fps) or fps <= 0:
+        raise ValueError(
+            f"Video FPS must be a finite positive value for timestamped pose extraction; got {fps!r}"
+        )
+    return fps
+
+
+def _timestamp_ms(frame_index: int, fps: float, previous: int | None) -> int:
+    _validate_fps(fps)
+    timestamp = round(frame_index * 1000 / fps)
+    return max(timestamp, (previous + 1) if previous is not None else 0)
+
+
+def extract_pose_sequence(
+    video_path: str | Path,
+    racket_side: RacketSide = "unknown",
+    model_path: Path = MODEL_PATH,
+) -> PoseSequence:
+    """Extract bilateral arm poses without selecting contact frames."""
+    if racket_side not in {"left", "right", "unknown"}:
+        raise ValueError("racket_side must be 'left', 'right', or 'unknown'")
+    if not model_path.exists():
+        raise FileNotFoundError(f"MediaPipe model not found: {model_path}")
+
+    capture = cv2.VideoCapture(str(video_path))
+    if not capture.isOpened():
+        raise ValueError(f"Could not open video: {video_path}")
+    try:
+        fps = _validate_fps(float(capture.get(cv2.CAP_PROP_FPS)))
+    except ValueError:
+        capture.release()
+        raise
+    frames: list[PoseFrame] = []
+    frame_index = 0
+    previous_timestamp: int | None = None
+    try:
+        base_options = mp.tasks.BaseOptions(model_asset_path=str(model_path))
+        options = mp.tasks.vision.PoseLandmarkerOptions(
+            base_options=base_options,
+            running_mode=mp.tasks.vision.RunningMode.VIDEO,
+            num_poses=1,
+        )
+        with mp.tasks.vision.PoseLandmarker.create_from_options(options) as landmarker:
+            while True:
+                ok, frame = capture.read()
+                if not ok:
+                    break
+                timestamp_ms = _timestamp_ms(frame_index, fps, previous_timestamp)
+                previous_timestamp = timestamp_ms
+                image = mp.Image(
+                    image_format=mp.ImageFormat.SRGB,
+                    data=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB),
+                )
+                detection = landmarker.detect_for_video(image, timestamp_ms)
+                landmarks = detection.pose_landmarks[0] if detection.pose_landmarks else []
+                frames.append(PoseFrame(
+                    frame_index=frame_index,
+                    timestamp_ms=timestamp_ms,
+                    left=_arm_pose(landmarks, "left"),
+                    right=_arm_pose(landmarks, "right"),
+                ))
+                frame_index += 1
+    finally:
+        capture.release()
+    return PoseSequence(frames=tuple(frames), fps=fps, racket_side=racket_side)
+
+===== backend\app\ml\pose\quality.py =====
+"""Diagnostic quality assessment for extracted pose frames."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from app.ml.pose.sequence import ArmPose, PoseFrame, RacketSide
+
+DEFAULT_CONFIDENCE_THRESHOLD = 0.5
+_JOINTS = ("shoulder", "elbow", "wrist")
+
+
+@dataclass(frozen=True)
+class PoseQuality:
+    reliable: bool
+    reasons: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ArmQuality:
+    status: str
+    reasons: tuple[str, ...]
+
+
+def assess_arm_quality(
+    arm: ArmPose,
+    side: str,
+    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
+) -> ArmQuality:
+    """Assess one arm's relevant landmarks."""
+    if not 0.0 <= confidence_threshold <= 1.0:
+        raise ValueError("confidence_threshold must be between 0 and 1")
+    reasons: list[str] = []
+    for joint in _JOINTS:
+        landmark = getattr(arm, joint)
+        label = f"{side}_{joint}"
+        if not landmark.present:
+            reasons.append(f"{label}_missing")
+            continue
+        if (
+            landmark.x is None
+            or landmark.y is None
+            or not 0.0 <= landmark.x <= 1.0
+            or not 0.0 <= landmark.y <= 1.0
+        ):
+            reasons.append(f"{label}_out_of_frame")
+        if landmark.visibility is None:
+            reasons.append(f"{label}_visibility_missing")
+        elif landmark.visibility < confidence_threshold:
+            reasons.append(f"{label}_visibility_low")
+        if landmark.presence is None:
+            reasons.append(f"{label}_presence_missing")
+        elif landmark.presence < confidence_threshold:
+            reasons.append(f"{label}_presence_low")
+    return ArmQuality(
+        status="reliable" if not reasons else "unreliable",
+        reasons=tuple(reasons),
+    )
+
+
+def assess_arm_roles(
+    frame: PoseFrame,
+    racket_side: RacketSide,
+    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
+) -> tuple[ArmQuality, ArmQuality]:
+    """Assess racket and non-racket arms without guessing an unknown side."""
+    if racket_side == "unknown":
+        unknown = ArmQuality("unknown", ("racket_side_unknown",))
+        return unknown, unknown
+    if racket_side == "left":
+        return (
+            assess_arm_quality(frame.left, "left", confidence_threshold),
+            assess_arm_quality(frame.right, "right", confidence_threshold),
+        )
+    if racket_side == "right":
+        return (
+            assess_arm_quality(frame.right, "right", confidence_threshold),
+            assess_arm_quality(frame.left, "left", confidence_threshold),
+        )
+    raise ValueError("racket_side must be 'left', 'right', or 'unknown'")
+
+
+def assess_frame_quality(
+    frame: PoseFrame,
+    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
+) -> PoseQuality:
+    """Assess bilateral arm landmarks without changing their raw values."""
+    if not 0.0 <= confidence_threshold <= 1.0:
+        raise ValueError("confidence_threshold must be between 0 and 1")
+
+    reasons = list(assess_arm_quality(
+        frame.left, "left", confidence_threshold
+    ).reasons)
+    reasons.extend(assess_arm_quality(
+        frame.right, "right", confidence_threshold
+    ).reasons)
+    return PoseQuality(reliable=not reasons, reasons=tuple(reasons))
+
+
+def frame_quality_coverage(
+    frames: tuple[PoseFrame, ...],
+    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
+) -> float:
+    """Return the fraction of frames assessed as reliable."""
+    if not frames:
+        return 0.0
+    valid_count = sum(
+        assess_frame_quality(frame, confidence_threshold).reliable
+        for frame in frames
+    )
+    return valid_count / len(frames)
+
+===== backend\app\ml\pose\presence.py =====
+"""Reviewed player-presence metadata keyed by source frame index."""
+
+from __future__ import annotations
+
+import csv
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Literal, Mapping, cast
+
+PlayerPresence = Literal["PLAYER_PRESENT", "PLAYER_ABSENT", "UNCERTAIN"]
+PRESENCE_REVIEW_COLUMNS = ("frame_index", "player_presence", "notes")
+
+
+@dataclass(frozen=True)
+class PlayerPresenceInterval:
+    """A contiguous inclusive interval reviewed as player-present."""
+
+    start_frame: int
+    end_frame: int
+
+
+def _validate_status(value: str) -> PlayerPresence:
+    if value not in {"PLAYER_PRESENT", "PLAYER_ABSENT", "UNCERTAIN"}:
+        raise ValueError(f"Unsupported player_presence value: {value!r}")
+    return cast(PlayerPresence, value)
+
+
+def load_presence_review(path: Path) -> dict[int, PlayerPresence]:
+    """Load explicit presence decisions without changing source frame indices."""
+    with path.open(newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        if reader.fieldnames is None:
+            raise ValueError("Presence review is missing a CSV header")
+        missing = [
+            column for column in PRESENCE_REVIEW_COLUMNS
+            if column not in reader.fieldnames
+        ]
+        if missing:
+            raise ValueError(
+                f"Presence review is missing required columns: {', '.join(missing)}"
+            )
+        decisions: dict[int, PlayerPresence] = {}
+        for row_number, row in enumerate(reader, start=2):
+            try:
+                frame_index = int((row.get("frame_index") or "").strip())
+            except ValueError as error:
+                raise ValueError(
+                    f"Invalid frame_index on presence-review row {row_number}"
+                ) from error
+            if frame_index < 0:
+                raise ValueError(
+                    f"frame_index must be non-negative on row {row_number}"
+                )
+            if frame_index in decisions:
+                raise ValueError(
+                    f"Duplicate frame_index on presence-review row {row_number}: "
+                    f"{frame_index}"
+                )
+            decisions[frame_index] = _validate_status(
+                (row.get("player_presence") or "").strip()
+            )
+    return decisions
+
+
+def presence_for_frame(
+    frame_index: int,
+    reviewed_presence: Mapping[int, PlayerPresence] | None = None,
+) -> PlayerPresence:
+    """Return reviewed presence or UNCERTAIN when no review exists."""
+    if reviewed_presence is None:
+        return "UNCERTAIN"
+    return reviewed_presence.get(frame_index, "UNCERTAIN")
+
+
+def present_intervals(
+    frame_indices: list[int] | tuple[int, ...],
+    reviewed_presence: Mapping[int, PlayerPresence] | None = None,
+) -> tuple[PlayerPresenceInterval, ...]:
+    """Return contiguous reviewed PLAYER_PRESENT runs in source-frame space."""
+    intervals: list[PlayerPresenceInterval] = []
+    start: int | None = None
+    previous: int | None = None
+    for frame_index in frame_indices:
+        is_present = (
+            presence_for_frame(frame_index, reviewed_presence)
+            == "PLAYER_PRESENT"
+        )
+        contiguous = previous is not None and frame_index == previous + 1
+        if is_present:
+            if start is None or not contiguous:
+                if start is not None and previous is not None:
+                    intervals.append(PlayerPresenceInterval(start, previous))
+                start = frame_index
+        elif start is not None and previous is not None:
+            intervals.append(PlayerPresenceInterval(start, previous))
+            start = None
+        previous = frame_index
+    if start is not None and previous is not None:
+        intervals.append(PlayerPresenceInterval(start, previous))
+    return tuple(intervals)
+
+===== backend\app\ml\features\temporal.py =====
+"""Temporal, diagnostic-only features for badminton pose sequences."""
+
+from __future__ import annotations
+
+import math
+from dataclasses import dataclass
+
+from app.ml.pose.quality import (
+    DEFAULT_CONFIDENCE_THRESHOLD,
+    assess_arm_roles,
+    assess_frame_quality,
+)
+from app.ml.pose.sequence import ArmPose, PoseSequence, RacketSide
+
+
+@dataclass(frozen=True)
+class TemporalFeatureFrame:
+    """Features for one frame; unavailable derivatives remain None."""
+
+    frame_index: int
+    timestamp_ms: int
+    racket_side: RacketSide
+    quality_status: str
+    quality_reasons: tuple[str, ...]
+    racket_arm_quality_status: str
+    racket_arm_quality_reasons: tuple[str, ...]
+    shoulder_x: float | None
+    shoulder_y: float | None
+    shoulder_z: float | None
+    elbow_x: float | None
+    elbow_y: float | None
+    elbow_z: float | None
+    wrist_x: float | None
+    wrist_y: float | None
+    wrist_z: float | None
+    shoulder_visibility: float | None
+    shoulder_presence: float | None
+    elbow_visibility: float | None
+    elbow_presence: float | None
+    wrist_visibility: float | None
+    wrist_presence: float | None
+    elbow_angle_2d_degrees: float | None
+    elbow_angle_3d_degrees: float | None
+    shoulder_elevation_degrees: float | None
+    wrist_velocity_normalized_per_second: float | None
+    elbow_angular_velocity_degrees_per_second: float | None
+    wrist_displacement_normalized: float | None
+
+
+@dataclass(frozen=True)
+class TemporalFeatureSequence:
+    """Ordered temporal features suitable for later model training."""
+
+    frames: tuple[TemporalFeatureFrame, ...]
+    racket_side: RacketSide
+
+
+def _finite(value: float | None) -> bool:
+    return value is not None and math.isfinite(value)
+
+
+def _position(
+    arm: ArmPose,
+    joint: str,
+) -> tuple[float, float] | None:
+    landmark = getattr(arm, joint)
+
+    if (
+        not landmark.present
+        or not _finite(landmark.x)
+        or not _finite(landmark.y)
+    ):
+        return None
+
+    return landmark.x, landmark.y
+
+
+def _coordinate(
+    arm: ArmPose | None,
+    joint: str,
+    axis: str,
+) -> float | None:
+    if arm is None:
+        return None
+
+    landmark = getattr(arm, joint)
+
+    if not landmark.present:
+        return None
+
+    value = getattr(landmark, axis)
+    return value if _finite(value) else None
+
+
+def _shoulder_elevation(arm: ArmPose) -> float | None:
+    shoulder = _position(arm, "shoulder")
+    wrist = _position(arm, "wrist")
+
+    if shoulder is None or wrist is None:
+        return None
+
+    dx = wrist[0] - shoulder[0]
+    dy = wrist[1] - shoulder[1]
+
+    if dx == 0 and dy == 0:
+        return None
+
+    return math.degrees(math.atan2(-dy, dx))
+
+
+def _time_delta_seconds(
+    previous_timestamp_ms: int,
+    timestamp_ms: int,
+) -> float | None:
+    delta_ms = timestamp_ms - previous_timestamp_ms
+
+    if delta_ms <= 0:
+        return None
+
+    return delta_ms / 1000.0
+
+
+def _distance(
+    first: tuple[float, float] | None,
+    last: tuple[float, float] | None,
+) -> float | None:
+    if first is None or last is None:
+        return None
+
+    return math.hypot(
+        last[0] - first[0],
+        last[1] - first[1],
+    )
+
+
+def _signed_angle_delta(
+    previous: float | None,
+    current: float | None,
+) -> float | None:
+    if not _finite(previous) or not _finite(current):
+        return None
+
+    return current - previous
+
+
+def extract_temporal_features(
+    sequence: PoseSequence,
+    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
+) -> TemporalFeatureSequence:
+    """Extract nullable temporal features from the configured racket arm."""
+
+    if not 0.0 <= confidence_threshold <= 1.0:
+        raise ValueError(
+            "confidence_threshold must be between 0 and 1"
+        )
+
+    previous_timestamp: int | None = None
+    previous_wrist: tuple[float, float] | None = None
+    previous_angle: float | None = None
+    previous_racket_arm_reliable = False
+
+    feature_frames: list[TemporalFeatureFrame] = []
+
+    for pose_frame in sequence.frames:
+        quality = assess_frame_quality(
+            pose_frame,
+            confidence_threshold,
+        )
+
+        racket_quality, _ = assess_arm_roles(
+            pose_frame,
+            sequence.racket_side,
+            confidence_threshold,
+        )
+
+        arm = (
+            pose_frame.left
+            if sequence.racket_side == "left"
+            else pose_frame.right
+            if sequence.racket_side == "right"
+            else None
+        )
+
+        wrist = _position(arm, "wrist") if arm is not None else None
+        shoulder = (
+            _position(arm, "shoulder")
+            if arm is not None
+            else None
+        )
+        elbow = _position(arm, "elbow") if arm is not None else None
+
+        angle_2d = (
+            _diagnostic_2d_angle(arm)
+            if arm is not None
+            else None
+        )
+
+        angle_3d = (
+            arm.elbow_angle_degrees
+            if arm is not None
+            else None
+        )
+
+        current_racket_arm_reliable = (
+            racket_quality.status == "reliable"
+        )
+
+        dt = (
+            _time_delta_seconds(
+                previous_timestamp,
+                pose_frame.timestamp_ms,
+            )
+            if previous_timestamp is not None
+            else None
+        )
+
+        # Derivatives require reliable observations at both endpoints.
+        derivative_usable = (
+            previous_racket_arm_reliable
+            and current_racket_arm_reliable
+            and dt is not None
+        )
+
+        displacement = (
+            _distance(previous_wrist, wrist)
+            if derivative_usable
+            else None
+        )
+
+        wrist_velocity = (
+            displacement / dt
+            if displacement is not None and dt is not None
+            else None
+        )
+
+        angle_delta = (
+            _signed_angle_delta(
+                previous_angle,
+                angle_2d,
+            )
+            if derivative_usable
+            else None
+        )
+
+        angular_velocity = (
+            angle_delta / dt
+            if angle_delta is not None and dt is not None
+            else None
+        )
+
+        feature_frames.append(
+            TemporalFeatureFrame(
+                frame_index=pose_frame.frame_index,
+                timestamp_ms=pose_frame.timestamp_ms,
+                racket_side=sequence.racket_side,
+                quality_status=(
+                    "reliable"
+                    if quality.reliable
+                    else "unreliable"
+                ),
+                quality_reasons=quality.reasons,
+                racket_arm_quality_status=racket_quality.status,
+                racket_arm_quality_reasons=racket_quality.reasons,
+                shoulder_x=shoulder[0] if shoulder else None,
+                shoulder_y=shoulder[1] if shoulder else None,
+                shoulder_z=_coordinate(
+                    arm,
+                    "shoulder",
+                    "z",
+                ),
+                elbow_x=elbow[0] if elbow else None,
+                elbow_y=elbow[1] if elbow else None,
+                elbow_z=_coordinate(
+                    arm,
+                    "elbow",
+                    "z",
+                ),
+                wrist_x=wrist[0] if wrist else None,
+                wrist_y=wrist[1] if wrist else None,
+                wrist_z=_coordinate(
+                    arm,
+                    "wrist",
+                    "z",
+                ),
+                shoulder_visibility=(
+                    arm.shoulder.visibility
+                    if arm
+                    else None
+                ),
+                shoulder_presence=(
+                    arm.shoulder.presence
+                    if arm
+                    else None
+                ),
+                elbow_visibility=(
+                    arm.elbow.visibility
+                    if arm
+                    else None
+                ),
+                elbow_presence=(
+                    arm.elbow.presence
+                    if arm
+                    else None
+                ),
+                wrist_visibility=(
+                    arm.wrist.visibility
+                    if arm
+                    else None
+                ),
+                wrist_presence=(
+                    arm.wrist.presence
+                    if arm
+                    else None
+                ),
+                elbow_angle_2d_degrees=angle_2d,
+                elbow_angle_3d_degrees=angle_3d,
+                shoulder_elevation_degrees=(
+                    _shoulder_elevation(arm)
+                    if arm
+                    else None
+                ),
+                wrist_velocity_normalized_per_second=(
+                    wrist_velocity
+                ),
+                elbow_angular_velocity_degrees_per_second=(
+                    angular_velocity
+                ),
+                wrist_displacement_normalized=displacement,
+            )
+        )
+
+        # Update state after extracting the current frame.
+        previous_timestamp = pose_frame.timestamp_ms
+        previous_wrist = wrist
+        previous_angle = angle_2d
+        previous_racket_arm_reliable = (
+            current_racket_arm_reliable
+        )
+
+    return TemporalFeatureSequence(
+        tuple(feature_frames),
+        sequence.racket_side,
+    )
+
+
+def _diagnostic_2d_angle(
+    arm: ArmPose,
+) -> float | None:
+    shoulder = _position(arm, "shoulder")
+    elbow = _position(arm, "elbow")
+    wrist = _position(arm, "wrist")
+
+    if shoulder is None or elbow is None or wrist is None:
+        return None
+
+    first = (
+        shoulder[0] - elbow[0],
+        shoulder[1] - elbow[1],
+    )
+
+    last = (
+        wrist[0] - elbow[0],
+        wrist[1] - elbow[1],
+    )
+
+    denominator = (
+        math.hypot(*first)
+        * math.hypot(*last)
+    )
+
+    if denominator <= 0 or not math.isfinite(denominator):
+        return None
+
+    cosine = (
+        first[0] * last[0]
+        + first[1] * last[1]
+    ) / denominator
+
+    if not math.isfinite(cosine):
+        return None
+
+    return math.degrees(
+        math.acos(
+            max(-1.0, min(1.0, cosine))
+        )
+    )
+
+===== backend\app\ml\scripts\export_temporal_features.py =====
+"""Export temporal pose features from an existing validation sequence CSV."""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import math
+from pathlib import Path
+
+from app.ml.features.temporal import TemporalFeatureFrame, extract_temporal_features
+from app.ml.pose.sequence import (
+    ArmPose,
+    LandmarkSample,
+    PoseFrame,
+    PoseSequence,
+    RacketSide,
+)
+
+FEATURE_COLUMNS = [
+    "frame_index",
+    "timestamp_ms",
+    "shoulder_x",
+    "shoulder_y",
+    "shoulder_z",
+    "elbow_x",
+    "elbow_y",
+    "elbow_z",
+    "wrist_x",
+    "wrist_y",
+    "wrist_z",
+    "shoulder_visibility",
+    "shoulder_presence",
+    "elbow_visibility",
+    "elbow_presence",
+    "wrist_visibility",
+    "wrist_presence",
+    "elbow_angle_2d_degrees",
+    "elbow_angle_3d_degrees",
+    "shoulder_elevation_degrees",
+    "wrist_displacement_normalized",
+    "wrist_velocity_normalized_per_second",
+    "elbow_angular_velocity_degrees_per_second",
+    "quality_status",
+    "quality_reasons",
+    "racket_arm_quality_status",
+    "racket_arm_quality_reasons",
+]
+
+
+def _float(value: str | None) -> float | None:
+    if value is None or value.strip() == "":
+        return None
+    try:
+        number = float(value)
+    except ValueError:
+        return None
+    return number if math.isfinite(number) else None
+
+
+def _int(value: str, field: str) -> int:
+    try:
+        return int(value)
+    except ValueError as error:
+        raise ValueError(f"Invalid {field}: {value!r}") from error
+
+
+def _landmark(row: dict[str, str], side: str, joint: str) -> LandmarkSample:
+    prefix = f"{side}_{joint}"
+    x = _float(row.get(f"{prefix}_x"))
+    y = _float(row.get(f"{prefix}_y"))
+    z = _float(row.get(f"{prefix}_z"))
+    present = x is not None and y is not None and z is not None
+    return LandmarkSample(
+        present=present,
+        x=x if present else None,
+        y=y if present else None,
+        z=z if present else None,
+        visibility=_float(row.get(f"{prefix}_visibility")),
+        presence=_float(row.get(f"{prefix}_presence")),
+    )
+
+
+def _arm(row: dict[str, str], side: str) -> ArmPose:
+    return ArmPose(
+        shoulder=_landmark(row, side, "shoulder"),
+        elbow=_landmark(row, side, "elbow"),
+        wrist=_landmark(row, side, "wrist"),
+        elbow_angle_degrees=_float(row.get(f"{side}_elbow_angle_degrees")),
+    )
+
+
+def load_pose_sequence_csv(
+    csv_path: Path,
+    racket_side: RacketSide,
+) -> PoseSequence:
+    """Reconstruct the exported pose sequence without filling missing values."""
+    frames: list[PoseFrame] = []
+    with csv_path.open(newline="", encoding="utf-8") as file:
+        for row in csv.DictReader(file):
+            frames.append(PoseFrame(
+                frame_index=_int(row["frame_index"], "frame_index"),
+                timestamp_ms=_int(row["timestamp_ms"], "timestamp_ms"),
+                left=_arm(row, "left"),
+                right=_arm(row, "right"),
+            ))
+    return PoseSequence(tuple(frames), fps=0.0, racket_side=racket_side)
+
+
+def select_feature_frames(
+    frames: tuple[TemporalFeatureFrame, ...],
+    start: int | None = None,
+    end: int | None = None,
+) -> list[TemporalFeatureFrame]:
+    """Select an inclusive frame range while preserving source order."""
+    if (start is None) != (end is None):
+        raise ValueError("frame range requires both start and end")
+    if start is not None and start > end:
+        raise ValueError("start frame must be less than or equal to end frame")
+    if start is None:
+        return list(frames)
+    return [frame for frame in frames if start <= frame.frame_index <= end]
+
+
+def _value(value: object) -> object:
+    return "" if value is None else value
+
+
+def _feature_row(frame: TemporalFeatureFrame) -> dict[str, object]:
+    row = {
+        "frame_index": frame.frame_index,
+        "timestamp_ms": frame.timestamp_ms,
+        "shoulder_x": frame.shoulder_x,
+        "shoulder_y": frame.shoulder_y,
+        "shoulder_z": frame.shoulder_z,
+        "elbow_x": frame.elbow_x,
+        "elbow_y": frame.elbow_y,
+        "elbow_z": frame.elbow_z,
+        "wrist_x": frame.wrist_x,
+        "wrist_y": frame.wrist_y,
+        "wrist_z": frame.wrist_z,
+        "shoulder_visibility": frame.shoulder_visibility,
+        "shoulder_presence": frame.shoulder_presence,
+        "elbow_visibility": frame.elbow_visibility,
+        "elbow_presence": frame.elbow_presence,
+        "wrist_visibility": frame.wrist_visibility,
+        "wrist_presence": frame.wrist_presence,
+        "elbow_angle_2d_degrees": frame.elbow_angle_2d_degrees,
+        "elbow_angle_3d_degrees": frame.elbow_angle_3d_degrees,
+        "shoulder_elevation_degrees": frame.shoulder_elevation_degrees,
+        "wrist_displacement_normalized": frame.wrist_displacement_normalized,
+        "wrist_velocity_normalized_per_second": (
+            frame.wrist_velocity_normalized_per_second
+        ),
+        "elbow_angular_velocity_degrees_per_second": (
+            frame.elbow_angular_velocity_degrees_per_second
+        ),
+        "quality_status": frame.quality_status,
+        "quality_reasons": ";".join(frame.quality_reasons),
+        "racket_arm_quality_status": frame.racket_arm_quality_status,
+        "racket_arm_quality_reasons": ";".join(frame.racket_arm_quality_reasons),
+    }
+    return {key: _value(value) for key, value in row.items()}
+
+
+def write_feature_csv(
+    frames: list[TemporalFeatureFrame],
+    output_path: Path,
+) -> None:
+    """Write temporal features with unavailable values as empty fields."""
+    with output_path.open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=FEATURE_COLUMNS)
+        writer.writeheader()
+        writer.writerows(_feature_row(frame) for frame in frames)
+
+
+def write_feature_plots(
+    frames: list[TemporalFeatureFrame],
+    output_path: Path,
+) -> None:
+    """Write trajectory, angle, velocity, and missingness diagnostics."""
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError as error:
+        raise RuntimeError(
+            "Plot generation requires matplotlib. Install it with "
+            "`python -m pip install matplotlib`."
+        ) from error
+
+    times = [frame.timestamp_ms / 1000 for frame in frames]
+    figure, axes = plt.subplots(4, 1, figsize=(11, 12), sharex=True)
+    axes[0].plot(times, [frame.wrist_x for frame in frames], label="Wrist x")
+    axes[0].plot(times, [frame.wrist_y for frame in frames], label="Wrist y")
+    axes[0].set_ylabel("Normalized coordinate")
+    axes[0].set_title("Racket-arm wrist trajectory")
+    axes[0].legend()
+
+    axes[1].plot(
+        times,
+        [frame.elbow_angle_2d_degrees for frame in frames],
+        label="2D elbow angle",
+    )
+    axes[1].plot(
+        times,
+        [frame.elbow_angle_3d_degrees for frame in frames],
+        label="3D elbow angle",
+    )
+    axes[1].set_ylabel("Degrees")
+    axes[1].set_title("Elbow angle")
+    axes[1].legend()
+
+    axes[2].plot(
+        times,
+        [frame.wrist_velocity_normalized_per_second for frame in frames],
+        label="Wrist velocity",
+    )
+    axes[2].set_ylabel("Normalized units/s")
+    axes[2].set_title("Wrist velocity")
+    axes[2].legend()
+
+    feature_names = (
+        "shoulder_x",
+        "elbow_x",
+        "wrist_x",
+        "elbow_angle_2d_degrees",
+        "wrist_velocity_normalized_per_second",
+    )
+    missing_counts = [
+        sum(
+            getattr(frame, name) is None
+            for name in feature_names
+        )
+        for frame in frames
+    ]
+    axes[3].plot(times, missing_counts, marker=".", label="Missing feature count")
+    axes[3].set_xlabel("Time (seconds)")
+    axes[3].set_ylabel("Count")
+    axes[3].set_title("Feature missingness")
+    axes[3].set_ylim(bottom=0)
+    axes[3].legend()
+
+    for axis in axes:
+        axis.grid(True, alpha=0.3)
+    figure.tight_layout()
+    figure.savefig(output_path, dpi=150)
+    plt.close(figure)
+
+
+def export_temporal_features(
+    video_path: Path,
+    sequence_csv: Path,
+    output_dir: Path,
+    racket_side: RacketSide,
+    frame_range: tuple[int, int] | None = None,
+) -> tuple[Path, Path]:
+    """Export features from a validation CSV associated with a local video."""
+    if not video_path.is_file():
+        raise FileNotFoundError(f"Video file does not exist: {video_path}")
+    sequence = load_pose_sequence_csv(sequence_csv, racket_side)
+    features = extract_temporal_features(sequence)
+    start, end = frame_range if frame_range is not None else (None, None)
+    selected = select_feature_frames(features.frames, start, end)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    stem = video_path.stem
+    csv_path = output_dir / f"{stem}_temporal_features.csv"
+    plot_path = output_dir / f"{stem}_temporal_features.png"
+    write_feature_csv(selected, csv_path)
+    write_feature_plots(selected, plot_path)
+    return csv_path, plot_path
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Export temporal pose features from a validation CSV."
+    )
+    parser.add_argument("video", type=Path, help="Original validation video path.")
+    parser.add_argument("csv", type=Path, help="Existing pose-sequence CSV path.")
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        required=True,
+        help="Directory for generated CSV and diagnostic plot.",
+    )
+    parser.add_argument(
+        "--frame-range",
+        nargs=2,
+        type=int,
+        metavar=("START", "END"),
+        help="Inclusive frame range; derivatives use the full source sequence.",
+    )
+    parser.add_argument(
+        "--racket-side",
+        choices=("left", "right", "unknown"),
+        default="unknown",
+        help="Racket side metadata; defaults to unknown.",
+    )
+    return parser
+
+
+def main() -> None:
+    args = build_parser().parse_args()
+    if not args.csv.is_file():
+        raise SystemExit(f"Pose-sequence CSV does not exist: {args.csv}")
+    frame_range = tuple(args.frame_range) if args.frame_range else None
+    try:
+        csv_path, plot_path = export_temporal_features(
+            args.video,
+            args.csv,
+            args.output_dir,
+            args.racket_side,
+            frame_range,
+        )
+    except (FileNotFoundError, ValueError, RuntimeError) as error:
+        raise SystemExit(str(error)) from error
+    print(f"CSV: {csv_path}")
+    print(f"Plot: {plot_path}")
+
+
+if __name__ == "__main__":
+    main()
+
+===== backend\app\ml\scripts\validate_pose_sequence.py =====
+"""Export and plot a MediaPipe badminton pose sequence for offline review."""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import math
+from pathlib import Path
+
+from app.ml.pose.sequence import ArmPose, PoseSequence, extract_pose_sequence
+from app.ml.pose.quality import (
+    DEFAULT_CONFIDENCE_THRESHOLD,
+    assess_arm_roles,
+    assess_frame_quality,
+    frame_quality_coverage,
+)
+
+DEFAULT_ANGLE_DISAGREEMENT_WARNING_THRESHOLD = 30.0
+
+CSV_COLUMNS = [
+    "frame_index",
+    "timestamp_ms",
+    "frame_quality_status",
+    "frame_quality_reasons",
+    "racket_arm_quality_status",
+    "racket_arm_quality_reasons",
+    "non_racket_arm_quality_status",
+    "non_racket_arm_quality_reasons",
+    "left_elbow_angle_degrees",
+    "right_elbow_angle_degrees",
+    "left_elbow_angle_2d_degrees",
+    "right_elbow_angle_2d_degrees",
+    "left_elbow_angle_disagreement_degrees",
+    "right_elbow_angle_disagreement_degrees",
+    "left_elbow_angle_disagreement_warning",
+    "right_elbow_angle_disagreement_warning",
+    "left_shoulder_x",
+    "left_shoulder_y",
+    "left_shoulder_z",
+    "left_shoulder_visibility",
+    "left_shoulder_presence",
+    "left_elbow_x",
+    "left_elbow_y",
+    "left_elbow_z",
+    "left_elbow_visibility",
+    "left_elbow_presence",
+    "left_wrist_x",
+    "left_wrist_y",
+    "left_wrist_z",
+    "left_wrist_visibility",
+    "left_wrist_presence",
+    "right_shoulder_x",
+    "right_shoulder_y",
+    "right_shoulder_z",
+    "right_shoulder_visibility",
+    "right_shoulder_presence",
+    "right_elbow_x",
+    "right_elbow_y",
+    "right_elbow_z",
+    "right_elbow_visibility",
+    "right_elbow_presence",
+    "right_wrist_x",
+    "right_wrist_y",
+    "right_wrist_z",
+    "right_wrist_visibility",
+    "right_wrist_presence",
+]
+
+
+def _value(value: float | int | None) -> float | int | str:
+    """Keep missing values empty in CSV output rather than fabricating data."""
+    return "" if value is None else value
+
+
+def _landmark_columns(landmark) -> dict[str, float | int | str]:
+    return {
+        "x": _value(landmark.x),
+        "y": _value(landmark.y),
+        "z": _value(landmark.z),
+        "visibility": _value(landmark.visibility),
+        "presence": _value(landmark.presence),
+    }
+
+
+def calculate_elbow_angle_2d(arm: ArmPose) -> float | None:
+    """Calculate a diagnostic elbow angle from valid x/y landmark coordinates."""
+    landmarks = (arm.shoulder, arm.elbow, arm.wrist)
+    if not all(
+        landmark.present
+        and landmark.x is not None
+        and landmark.y is not None
+        and math.isfinite(landmark.x)
+        and math.isfinite(landmark.y)
+        for landmark in landmarks
+    ):
+        return None
+
+    first_vector = (
+        arm.shoulder.x - arm.elbow.x,
+        arm.shoulder.y - arm.elbow.y,
+    )
+    last_vector = (
+        arm.wrist.x - arm.elbow.x,
+        arm.wrist.y - arm.elbow.y,
+    )
+    denominator = math.hypot(*first_vector) * math.hypot(*last_vector)
+    if not math.isfinite(denominator) or denominator <= 0:
+        return None
+    cosine = (
+        first_vector[0] * last_vector[0]
+        + first_vector[1] * last_vector[1]
+    ) / denominator
+    if not math.isfinite(cosine):
+        return None
+    return math.degrees(math.acos(max(-1.0, min(1.0, cosine))))
+
+
+def calculate_angle_disagreement(
+    angle_3d: float | None,
+    angle_2d: float | None,
+) -> float | None:
+    """Return the absolute 2D/3D difference when both angles are finite."""
+    if (
+        angle_3d is None
+        or angle_2d is None
+        or not math.isfinite(angle_3d)
+        or not math.isfinite(angle_2d)
+    ):
+        return None
+    return abs(angle_3d - angle_2d)
+
+
+def angle_disagreement_warning(
+    angle_3d: float | None,
+    angle_2d: float | None,
+    threshold_degrees: float = DEFAULT_ANGLE_DISAGREEMENT_WARNING_THRESHOLD,
+) -> bool:
+    """Flag disagreement strictly above the diagnostic threshold."""
+    if not math.isfinite(threshold_degrees) or threshold_degrees < 0:
+        raise ValueError("threshold_degrees must be finite and non-negative")
+    disagreement = calculate_angle_disagreement(angle_3d, angle_2d)
+    return disagreement is not None and disagreement > threshold_degrees
+
+
+def write_sequence_csv(
+    sequence: PoseSequence,
+    output_path: Path,
+    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
+    angle_disagreement_threshold: float = (
+        DEFAULT_ANGLE_DISAGREEMENT_WARNING_THRESHOLD
+    ),
+) -> float:
+    """Write bilateral angles, coordinates, and confidence metadata to CSV."""
+    with output_path.open("w", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=CSV_COLUMNS)
+        writer.writeheader()
+        for frame in sequence.frames:
+            quality = assess_frame_quality(frame, confidence_threshold)
+            racket_quality, non_racket_quality = assess_arm_roles(
+                frame,
+                sequence.racket_side,
+                confidence_threshold,
+            )
+            left_angle_2d = calculate_elbow_angle_2d(frame.left)
+            right_angle_2d = calculate_elbow_angle_2d(frame.right)
+            row: dict[str, float | int | str] = {
+                "frame_index": frame.frame_index,
+                "timestamp_ms": frame.timestamp_ms,
+                "frame_quality_status": "reliable" if quality.reliable else "unreliable",
+                "frame_quality_reasons": ";".join(quality.reasons),
+                "racket_arm_quality_status": racket_quality.status,
+                "racket_arm_quality_reasons": ";".join(racket_quality.reasons),
+                "non_racket_arm_quality_status": non_racket_quality.status,
+                "non_racket_arm_quality_reasons": ";".join(non_racket_quality.reasons),
+                "left_elbow_angle_degrees": _value(frame.left.elbow_angle_degrees),
+                "right_elbow_angle_degrees": _value(frame.right.elbow_angle_degrees),
+                "left_elbow_angle_2d_degrees": _value(
+                    left_angle_2d
+                ),
+                "right_elbow_angle_2d_degrees": _value(
+                    right_angle_2d
+                ),
+                "left_elbow_angle_disagreement_degrees": _value(
+                    calculate_angle_disagreement(
+                        frame.left.elbow_angle_degrees,
+                        left_angle_2d,
+                    )
+                ),
+                "right_elbow_angle_disagreement_degrees": _value(
+                    calculate_angle_disagreement(
+                        frame.right.elbow_angle_degrees,
+                        right_angle_2d,
+                    )
+                ),
+                "left_elbow_angle_disagreement_warning": angle_disagreement_warning(
+                    frame.left.elbow_angle_degrees,
+                    left_angle_2d,
+                    angle_disagreement_threshold,
+                ),
+                "right_elbow_angle_disagreement_warning": angle_disagreement_warning(
+                    frame.right.elbow_angle_degrees,
+                    right_angle_2d,
+                    angle_disagreement_threshold,
+                ),
+            }
+            for side, arm in (("left", frame.left), ("right", frame.right)):
+                for joint in ("shoulder", "elbow", "wrist"):
+                    values = _landmark_columns(getattr(arm, joint))
+                    row.update({
+                        f"{side}_{joint}_{key}": value
+                        for key, value in values.items()
+                    })
+            writer.writerow(row)
+    return frame_quality_coverage(
+        sequence.frames,
+        confidence_threshold,
+    )
+
+
+def write_angle_plot(sequence: PoseSequence, output_path: Path) -> None:
+    """Plot both elbow-angle series, preserving missing observations as gaps."""
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError as error:
+        raise RuntimeError(
+            "Plot generation requires matplotlib. Install it with "
+            "`python -m pip install matplotlib`."
+        ) from error
+
+    times = [frame.timestamp_ms / 1000 for frame in sequence.frames]
+    left_angles = [
+        frame.left.elbow_angle_degrees for frame in sequence.frames
+    ]
+    right_angles = [
+        frame.right.elbow_angle_degrees for frame in sequence.frames
+    ]
+
+    figure, axis = plt.subplots(figsize=(10, 5))
+    axis.plot(times, left_angles, label="Left elbow", marker=".", linewidth=1)
+    axis.plot(times, right_angles, label="Right elbow", marker=".", linewidth=1)
+    axis.set_title("Badminton elbow angles")
+    axis.set_xlabel("Time (seconds)")
+    axis.set_ylabel("Elbow angle (degrees)")
+    axis.grid(True, alpha=0.3)
+    axis.legend()
+    figure.tight_layout()
+    figure.savefig(output_path, dpi=150)
+    plt.close(figure)
+
+
+def validate_video(
+    video_path: Path,
+    output_dir: Path,
+    racket_side: str,
+    confidence_threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
+    angle_disagreement_threshold: float = (
+        DEFAULT_ANGLE_DISAGREEMENT_WARNING_THRESHOLD
+    ),
+) -> tuple[Path, Path]:
+    """Extract one video and write its CSV and plot outputs."""
+    sequence = extract_pose_sequence(video_path, racket_side=racket_side)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    csv_path = output_dir / f"{video_path.stem}_pose_sequence.csv"
+    plot_path = output_dir / f"{video_path.stem}_elbow_angles.png"
+    coverage = write_sequence_csv(
+        sequence,
+        csv_path,
+        confidence_threshold,
+        angle_disagreement_threshold,
+    )
+    write_angle_plot(sequence, plot_path)
+    print(f"Reliable-frame coverage: {coverage:.1%}")
+    return csv_path, plot_path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Export and plot a bilateral MediaPipe pose sequence."
+    )
+    parser.add_argument("video", type=Path, help="Local video path to validate.")
+    parser.add_argument(
+        "--racket-side",
+        choices=("left", "right", "unknown"),
+        default="unknown",
+        help="Racket side metadata; defaults to unknown.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        required=True,
+        help="Directory for the generated CSV and PNG.",
+    )
+    parser.add_argument(
+        "--confidence-threshold",
+        type=float,
+        default=DEFAULT_CONFIDENCE_THRESHOLD,
+        help=f"Minimum visibility/presence confidence (default: {DEFAULT_CONFIDENCE_THRESHOLD}).",
+    )
+    parser.add_argument(
+        "--angle-disagreement-threshold",
+        type=float,
+        default=DEFAULT_ANGLE_DISAGREEMENT_WARNING_THRESHOLD,
+        help=(
+            "2D/3D angle warning threshold in degrees "
+            f"(default: {DEFAULT_ANGLE_DISAGREEMENT_WARNING_THRESHOLD})."
+        ),
+    )
+    args = parser.parse_args()
+
+    if not args.video.is_file():
+        parser.error(f"Video file does not exist: {args.video}")
+    csv_path, plot_path = validate_video(
+        args.video,
+        args.output_dir,
+        args.racket_side,
+        args.confidence_threshold,
+        args.angle_disagreement_threshold,
+    )
+    print(f"CSV: {csv_path}")
+    print(f"Plot: {plot_path}")
+
+
+if __name__ == "__main__":
+    main()
+
+===== backend\app\main.py =====
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.api.routers import analyze, auth, dashboard, health_data, history, nutrition
+from app.config import get_settings
+from app.database.session import Base, engine
+from app.models import analysis as _analysis_models  # noqa: F401 - registers tables with Base.metadata
+from app.models import health_data as _health_data_models  # noqa: F401 - same
+from app.models import user as _user_models  # noqa: F401 - same, explicit for clarity
+from app.utils.errors import register_exception_handlers
+
+settings = get_settings()
+
+# Dev convenience only: creates SQLite tables on startup if missing. Once on
+# real Postgres/Supabase, use Alembic migrations instead of this - swap out
+# before Day 3 when the schema actually needs to evolve (PersonalBaseline,
+# SkillCard, etc. per the brief's v1.1 section). The three imports above are
+# required for create_all() to see these models - SQLAlchemy only creates
+# tables for classes that have actually been imported somewhere.
+# Local SQLite development convenience.
+# PostgreSQL/Supabase schema changes must be managed through Alembic.
+if settings.database_url.startswith("sqlite"):
+    Base.metadata.create_all(bind=engine)
+
+app = FastAPI(
+    title="SportsIQ API",
+    version="0.1.0",
+    docs_url="/docs" if settings.debug else None,
+    redoc_url="/redoc" if settings.debug else None,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=(
+        ["*"]
+        if settings.cors_origins.strip() == "*"
+        else [
+            origin.strip()
+            for origin in settings.cors_origins.split(",")
+            if origin.strip()
+        ]
+    ),
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+register_exception_handlers(app)
+
+app.include_router(auth.router)
+app.include_router(analyze.router)
+app.include_router(history.router)
+app.include_router(dashboard.router)
+app.include_router(health_data.router)
+app.include_router(nutrition.router)
+
+
+@app.get("/health", tags=["meta"])
+def health_check() -> dict[str, bool]:
+    # Plain platform liveness check (Railway pings this) - deliberately NOT
+    # under the contract's error/response envelope since it's not a contract
+    # endpoint, just infra plumbing.
+    return {"ok": True}
+
+===== pytest =====
