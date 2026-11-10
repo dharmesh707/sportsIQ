@@ -221,3 +221,32 @@ def extract_pose_sequence(
     finally:
         capture.release()
     return PoseSequence(frames=tuple(frames), fps=fps, racket_side=racket_side)
+
+
+def slice_pose_sequence(
+    sequence: PoseSequence,
+    start_ms: int,
+    end_ms: int,
+) -> PoseSequence:
+    """Return pose frames within an annotation interval.
+
+    Frame indices and timestamps remain on the original video timeline.
+    The interval is start-inclusive and end-exclusive: ``[start_ms, end_ms)``.
+    """
+    if start_ms < 0:
+        raise ValueError("start_ms must be >= 0")
+
+    if end_ms <= start_ms:
+        raise ValueError("end_ms must be greater than start_ms")
+
+    selected_frames = tuple(
+        frame
+        for frame in sequence.frames
+        if start_ms <= frame.timestamp_ms < end_ms
+    )
+
+    return PoseSequence(
+        frames=selected_frames,
+        fps=sequence.fps,
+        racket_side=sequence.racket_side,
+    )
