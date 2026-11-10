@@ -1,0 +1,79 @@
+{
+  "accuracy_note": "No landmark accuracy is reported; manually annotated ground truth is required.",
+  "video": "data\\validation\\f0724262-de53-46ba-88dc-3fed18758ee1.mp4",
+  "video_info": {
+    "width": 608,
+    "height": 1080,
+    "fps": 25.99998183090019,
+    "frame_count": 159,
+    "duration_seconds": 6.115388888888888
+  },
+  "frame_index_convention": "original zero-based decoded frame index",
+  "estimators": [
+    {
+      "estimator": "mediapipe",
+      "status": "completed",
+      "package": "mediapipe",
+      "package_version": "1.0.1",
+      "common_joints": [
+        "left_shoulder",
+        "right_shoulder",
+        "left_elbow",
+        "right_elbow",
+        "left_wrist",
+        "right_wrist"
+      ],
+      "configuration": {
+        "model_path": "models\\pose_landmarker_full.task"
+      },
+      "summary": {
+        "frames_processed": 159,
+        "detected_frames": 114,
+        "missing_detection_ranges": [
+          [
+            106,
+            121
+          ],
+          [
+            127,
+            134
+          ],
+          [
+            138,
+            158
+          ]
+        ],
+        "valid_keypoints": {
+          "left_shoulder": 114,
+          "right_shoulder": 114,
+          "left_elbow": 114,
+          "right_elbow": 114,
+          "left_wrist": 114,
+          "right_wrist": 114
+        },
+        "latency_ms": {
+          "count": 159,
+          "mean": 28.482815098462616,
+          "median": 29.53130006790161,
+          "min": 14.828599989414215,
+          "max": 64.25809999927878,
+          "effective_fps": 35.10888922120538
+        },
+        "temporal_jitter_mean_abs_x": {
+          "left_shoulder": 0.030867808688003404,
+          "right_shoulder": 0.028609646830411083,
+          "left_elbow": 0.02923038812865198,
+          "right_elbow": 0.03529302505529033,
+          "left_wrist": 0.04454872724229256,
+          "right_wrist": 0.05222650122853507
+        },
+        "errors": [],
+        "processing_duration_seconds": 6.212944800034165
+      },
+      "output_files": {
+        "frames": "data\\benchmark\\pose_phase1_overlay\\mediapipe_frames.jsonl",
+        "overlay": "data\\benchmark\\pose_phase1_overlay\\mediapipe_overlay.mp4"
+      }
+    }
+  ]
+}

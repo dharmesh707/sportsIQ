@@ -1,0 +1,282 @@
+{
+  "manifest_path": "backend/data/pilot/manifests/stroke_manifest.csv",
+  "dataset_root": "backend",
+  "populated_annotation_source": "backend/data/pilot/manifests/stroke_annotations_pilot.csv",
+  "canonical_manifest": {
+    "rows": 0,
+    "status": "header_only"
+  },
+  "populated_annotation_source_schema": [
+    "annotation_id",
+    "video_path",
+    "stroke_label",
+    "start_ms",
+    "end_ms",
+    "annotation_status",
+    "reviewer_id"
+  ],
+  "source_video_count": 1,
+  "annotated_clip_count": 16,
+  "unique_players": [],
+  "unique_sessions": [],
+  "stroke_labels": {
+    "smash": 16
+  },
+  "splits": {},
+  "source_video_split_leakage": {},
+  "player_split_leakage": {},
+  "source_videos": [
+    {
+      "source_video_id": "not_available_in_populated_csv",
+      "path": "backend/data/pilot/source_videos/badminton_highlights.mp4",
+      "width_px": 1918,
+      "height_px": 1078,
+      "fps": 30.0,
+      "frame_count": 1831,
+      "duration_ms": 61033.33333333333,
+      "extraction_status": "succeeded",
+      "extracted_frame_count": 1831,
+      "pose_presence_counts": {
+        "PLAYER_PRESENT": 1741,
+        "PLAYER_ABSENT": 90,
+        "UNCERTAIN": 0
+      }
+    }
+  ],
+  "interval_summary": {
+    "invalid_intervals": [],
+    "out_of_video_intervals": [],
+    "overlapping_intervals": [
+      [
+        "smash_20261110_183532_554611",
+        "smash_20261110_183515_586712"
+      ]
+    ],
+    "total_sliced_frames": 300,
+    "clips_with_at_least_two_frames": 16,
+    "clips_with_zero_frames": 0,
+    "clips_with_one_frame": 0
+  },
+  "pose_quality_definition": {
+    "usable_keypoint_frame": "all 21 canonical keypoints valid after preprocess_full_body_sequence at confidence_threshold=0.5",
+    "detected_frame": "at least one canonical keypoint present",
+    "confidence_policy": "existing visibility, presence, and confidence values are thresholded when present; no values are fabricated"
+  },
+  "clips": [
+    {
+      "clip_id": "smash_20261110_183040_250353",
+      "start_ms": 6333.0,
+      "end_ms": 7166.0,
+      "duration_ms": 833.0,
+      "frame_count": 25,
+      "first_source_frame": 190,
+      "last_source_frame": 214,
+      "detected_any_keypoint_frames": 25,
+      "all21_reliable_frames": 6,
+      "valid_keypoint_features": 506,
+      "invalid_or_low_confidence_keypoint_features": 19
+    },
+    {
+      "clip_id": "smash_20261110_183223_962653",
+      "start_ms": 14966.0,
+      "end_ms": 15466.0,
+      "duration_ms": 500.0,
+      "frame_count": 15,
+      "first_source_frame": 449,
+      "last_source_frame": 463,
+      "detected_any_keypoint_frames": 15,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 205,
+      "invalid_or_low_confidence_keypoint_features": 110
+    },
+    {
+      "clip_id": "smash_20261110_183300_891977",
+      "start_ms": 18000.0,
+      "end_ms": 18433.0,
+      "duration_ms": 433.0,
+      "frame_count": 13,
+      "first_source_frame": 540,
+      "last_source_frame": 552,
+      "detected_any_keypoint_frames": 13,
+      "all21_reliable_frames": 5,
+      "valid_keypoint_features": 259,
+      "invalid_or_low_confidence_keypoint_features": 14
+    },
+    {
+      "clip_id": "smash_20261110_183335_227897",
+      "start_ms": 22133.0,
+      "end_ms": 22733.0,
+      "duration_ms": 600.0,
+      "frame_count": 18,
+      "first_source_frame": 664,
+      "last_source_frame": 681,
+      "detected_any_keypoint_frames": 18,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 342,
+      "invalid_or_low_confidence_keypoint_features": 36
+    },
+    {
+      "clip_id": "smash_20261110_183346_133914",
+      "start_ms": 23800.0,
+      "end_ms": 24300.0,
+      "duration_ms": 500.0,
+      "frame_count": 15,
+      "first_source_frame": 714,
+      "last_source_frame": 728,
+      "detected_any_keypoint_frames": 15,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 293,
+      "invalid_or_low_confidence_keypoint_features": 22
+    },
+    {
+      "clip_id": "smash_20261110_183410_866546",
+      "start_ms": 26566.0,
+      "end_ms": 27333.0,
+      "duration_ms": 767.0,
+      "frame_count": 23,
+      "first_source_frame": 797,
+      "last_source_frame": 819,
+      "detected_any_keypoint_frames": 23,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 446,
+      "invalid_or_low_confidence_keypoint_features": 37
+    },
+    {
+      "clip_id": "smash_20261110_183515_586712",
+      "start_ms": 35333.0,
+      "end_ms": 35733.0,
+      "duration_ms": 400.0,
+      "frame_count": 12,
+      "first_source_frame": 1060,
+      "last_source_frame": 1071,
+      "detected_any_keypoint_frames": 12,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 228,
+      "invalid_or_low_confidence_keypoint_features": 24
+    },
+    {
+      "clip_id": "smash_20261110_183532_554611",
+      "start_ms": 34500.0,
+      "end_ms": 35400.0,
+      "duration_ms": 900.0,
+      "frame_count": 27,
+      "first_source_frame": 1035,
+      "last_source_frame": 1061,
+      "detected_any_keypoint_frames": 27,
+      "all21_reliable_frames": 4,
+      "valid_keypoint_features": 526,
+      "invalid_or_low_confidence_keypoint_features": 41
+    },
+    {
+      "clip_id": "smash_20261110_184758_912038",
+      "start_ms": 43433.0,
+      "end_ms": 44266.0,
+      "duration_ms": 833.0,
+      "frame_count": 25,
+      "first_source_frame": 1303,
+      "last_source_frame": 1327,
+      "detected_any_keypoint_frames": 25,
+      "all21_reliable_frames": 8,
+      "valid_keypoint_features": 506,
+      "invalid_or_low_confidence_keypoint_features": 19
+    },
+    {
+      "clip_id": "smash_20261110_184805_318214",
+      "start_ms": 44700.0,
+      "end_ms": 45233.0,
+      "duration_ms": 533.0,
+      "frame_count": 16,
+      "first_source_frame": 1341,
+      "last_source_frame": 1356,
+      "detected_any_keypoint_frames": 16,
+      "all21_reliable_frames": 4,
+      "valid_keypoint_features": 312,
+      "invalid_or_low_confidence_keypoint_features": 24
+    },
+    {
+      "clip_id": "smash_20261110_184813_771985",
+      "start_ms": 45766.0,
+      "end_ms": 46200.0,
+      "duration_ms": 434.0,
+      "frame_count": 13,
+      "first_source_frame": 1373,
+      "last_source_frame": 1385,
+      "detected_any_keypoint_frames": 13,
+      "all21_reliable_frames": 13,
+      "valid_keypoint_features": 273,
+      "invalid_or_low_confidence_keypoint_features": 0
+    },
+    {
+      "clip_id": "smash_20261110_184824_803665",
+      "start_ms": 46600.0,
+      "end_ms": 47133.0,
+      "duration_ms": 533.0,
+      "frame_count": 16,
+      "first_source_frame": 1398,
+      "last_source_frame": 1413,
+      "detected_any_keypoint_frames": 16,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 300,
+      "invalid_or_low_confidence_keypoint_features": 36
+    },
+    {
+      "clip_id": "smash_20261110_184835_459375",
+      "start_ms": 48233.0,
+      "end_ms": 48933.0,
+      "duration_ms": 700.0,
+      "frame_count": 21,
+      "first_source_frame": 1447,
+      "last_source_frame": 1467,
+      "detected_any_keypoint_frames": 21,
+      "all21_reliable_frames": 16,
+      "valid_keypoint_features": 436,
+      "invalid_or_low_confidence_keypoint_features": 5
+    },
+    {
+      "clip_id": "smash_20261110_184843_384655",
+      "start_ms": 49333.0,
+      "end_ms": 50000.0,
+      "duration_ms": 667.0,
+      "frame_count": 20,
+      "first_source_frame": 1480,
+      "last_source_frame": 1499,
+      "detected_any_keypoint_frames": 20,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 377,
+      "invalid_or_low_confidence_keypoint_features": 43
+    },
+    {
+      "clip_id": "smash_20261110_184902_020739",
+      "start_ms": 51000.0,
+      "end_ms": 51700.0,
+      "duration_ms": 700.0,
+      "frame_count": 21,
+      "first_source_frame": 1530,
+      "last_source_frame": 1550,
+      "detected_any_keypoint_frames": 21,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 392,
+      "invalid_or_low_confidence_keypoint_features": 49
+    },
+    {
+      "clip_id": "smash_20261110_184944_440025",
+      "start_ms": 60133.0,
+      "end_ms": 60800.0,
+      "duration_ms": 667.0,
+      "frame_count": 20,
+      "first_source_frame": 1804,
+      "last_source_frame": 1823,
+      "detected_any_keypoint_frames": 20,
+      "all21_reliable_frames": 0,
+      "valid_keypoint_features": 118,
+      "invalid_or_low_confidence_keypoint_features": 302
+    }
+  ],
+  "pipeline_build": {
+    "status": "blocked",
+    "canonical_empty_manifest_error": "ValueError: Cannot build a dataset from an empty manifest.",
+    "populated_pilot_error": "ValueError: Manifest is missing required columns: clip_id, clip_path, player_id, session_id, source_video_id, split",
+    "feature_extraction_in_memory": "succeeded for all 16 intervals",
+    "reason": "The populated pilot annotation CSV is not in the canonical DatasetRecord schema and all rows are pending_review; no canonical records can be passed to build_feature_dataset."
+  }
+}
