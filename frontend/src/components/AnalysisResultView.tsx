@@ -57,7 +57,7 @@ export function AnalysisResultView({ result }: { result: AnalysisResult }) {
 
       {hardFaults.length > 0 && (
         <View>
-          <SectionLabel>HARD FAULTS ({hardFaults.length})</SectionLabel>
+          <SectionLabel>{`HARD FAULTS (${hardFaults.length})`}</SectionLabel>
           <View style={{ gap: space.sm }}>
             {hardFaults.map((f, i) => (
               <FaultCard key={i} fault={f} />
@@ -68,7 +68,7 @@ export function AnalysisResultView({ result }: { result: AnalysisResult }) {
 
       {softFaults.length > 0 && (
         <View>
-          <SectionLabel>STYLE NOTES ({softFaults.length})</SectionLabel>
+          <SectionLabel>{`STYLE NOTES (${softFaults.length})`}</SectionLabel>
           <View style={{ gap: space.sm }}>
             {softFaults.map((f, i) => (
               <FaultCard key={i} fault={f} />

@@ -6,6 +6,7 @@ import { Text } from "react-native";
 import { useAuth } from "@/context/AuthContext";
 import { color } from "@/theme/tokens";
 import { LoadingState } from "@/components/LoadingState";
+import { AuthStackParamList, RootStackParamList } from "@/navigation/types";
 
 import LoginScreen from "@/screens/auth/LoginScreen";
 import RegisterScreen from "@/screens/auth/RegisterScreen";
@@ -17,8 +18,8 @@ import TrainScreen from "@/screens/TrainScreen";
 import ProfileScreen from "@/screens/ProfileScreen";
 import AnalysisDetailScreen from "@/screens/AnalysisDetailScreen";
 
-const AuthStack = createNativeStackNavigator();
-const RootStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator<AuthStackParamList>();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON: Record<string, string> = {
